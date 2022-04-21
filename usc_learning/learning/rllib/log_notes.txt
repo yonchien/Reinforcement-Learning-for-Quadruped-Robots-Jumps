@@ -1,0 +1,1416 @@
+
+#ALG = "SAC"
+# root for recent trial
+log_dir = os.path.join('./ray_results', '071120132724') # pretty good
+
+# 071120222933
+log_dir = os.path.join('./ray_results', '071120222933') 
+log_dir = os.path.join('./ray_results','071220024610')
+
+# overnight runs (all not bad)
+log_dir = os.path.join('./ray_results','071220024610')
+#log_dir = os.path.join('./ray_results','071220040750')
+#log_dir = os.path.join('./ray_results','071220040817')
+#log_dir = os.path.join('./ray_results','071220040856')
+
+log_dir = os.path.join('./ray_results','071220130358')
+log_dir = os.path.join('./ray_results','071220230841')
+
+# PD
+log_dir = os.path.join('./ray_results','071520170306')
+
+# standing task / rand
+log_dir = os.path.join('./ray_results','072020141824')
+log_dir = os.path.join('./ray_results','072020180835')
+
+# torque
+log_dir = get_log_dir('072020232226')
+
+# impedance 3D
+#log_dir = get_log_dir('072020232048')
+
+# old action space,
+log_dir = get_log_dir('072320021506') # w/o terrain
+log_dir = get_log_dir('072320033358') # w/ terrain
+
+# SAC
+log_dir = get_log_dir('072320040101')
+
+# rough terrain (videos for prof)
+log_dir = get_log_dir('072320133211')
+
+# w fixed joint velocities and torques
+log_dir = get_log_dir('072320203223') # 1
+# rough terrain
+log_dir = get_log_dir('072320220652') # 2
+
+# test
+log_dir = get_log_dir('072420005201') # 3
+
+# test a few
+log_dir = get_log_dir('072420130101') # (rough) better than the one below
+#log_dir = get_log_dir('072420130204') # (rough) not good
+log_dir = get_log_dir('072420180006') # PD
+log_dir = get_log_dir('072420175247')
+
+# standing
+log_dir = '072420193153'
+log_dir = '072420181443' # fwd
+log_dir = '072420175247'
+
+log_dir = '072520050054' # fwd, way too stiff though (impedance 3d?)
+#log_dir = '072520045918' # stand imp
+#log_dir = '072520015515' # stand PD?
+#log_dir = '072420181443' # fwd 1m/s
+log_dir = '072520224904'
+log_dir = '072620014805' # impedance stand
+#log_dir = '072620025842' # impedance pos only stand
+
+# pd or torque
+# log_dir = '072620032942'
+# log_dir = '072620032801'
+# log_dir = '072620011742'
+
+# 
+log_dir = '072620201919'
+log_dir = '072620224023'
+# PD 200
+log_dir = '072720040102' # 200
+log_dir = '072720040051' # 100
+log_dir = '072720040040' # 50
+
+# impedance stand fgood
+#log_dir = '072620154002'
+log_dir = '072620201919'
+log_dir = '072720040102' # PD 200, not 
+# log_dir = '072720001739'
+# log_dir = '072720040051'
+log_dir = '072720180918' # PD working well??
+
+# 200
+log_dir = '072720180918'
+# 300
+#log_dir = '072720180930'
+# 100
+#log_dir = '072720180908'
+# repeate of 200 (I think
+log_dir = '072720194024'
+
+log_dir = '072820012425' # impedance
+log_dir = '072820005749'
+log_dir = '072720180908'
+
+# fwd
+log_dir = '072820150230'
+log_dir = '072820150253'
+
+# fwd
+log_dir = '072920041838'
+#log_dir = '072920041932'
+#log_dir = '072920022935'
+
+log_dir = '073020035729' # PD
+#log_dir = '073020024905' # impedance
+
+log_dir = '073020135710'
+log_dir = '073020135646'
+
+log_dir = '073020172215' # 1 m/s
+#log_dir = '073020161023' # max speed
+log_dir = '073020211610'
+
+log_dir = '073120002159'
+#log_dir = '073120031059'
+#log_dir = '073120012328'
+log_dir = '073120145214'
+log_dir = '080120012636'
+
+log_dir = '080120172228'
+log_dir = '080220002925'
+log_dir = '080220002947'
+
+log_dir = '080220131625'
+log_dir = '080220172935'
+log_dir = '080220194408'
+log_dir = '080220234232'
+
+log_dir = '080320010705'
+log_dir = '080420000333'
+#log_dir = '080320195833'
+
+log_dir = '080620011432'
+log_dir = '080620011108'
+log_dir = '080620011341'
+
+log_dir = '080620232306'
+log_dir = '080720015039'
+log_dir = '080720113304'
+
+log_dir = '080720160739'
+log_dir = '080720163645' # good trot [can't reproduce??]
+# trying to reproduce trot - didn't work
+#log_dir = '080720213532'
+#log_dir = '080720220833'
+#log_dir = '080720213502'
+
+#log_dir = '080820121851'
+log_dir = '080820131501'
+
+log_dir = '080820143349' # this is normal impedance, good 
+# log_dir = '080820152701'
+# log_dir = '080820143306'
+# log_dir = '080820163721'
+
+# trot
+log_dir = '080820215711'
+#log_dir = '080820233629'
+#log_dir = '080920002602'
+
+# rough terrain
+log_dir = '080920094451'
+#log_dir = '080920095031'
+log_dir = '080920174458'
+log_dir = '080920181532'
+
+log_dir = '081020012426'
+#log_dir = '081020010537'
+#log_dir = '080920203824'
+
+log_dir = '081020161211'
+
+log_dir = '081020174618'
+log_dir = '081020174402'
+log_dir = '081020205923'
+#log_dir = '081020220955'
+
+log_dir = '081120001729' # 3D force too stiff 
+log_dir = '081020220955'
+log_dir = '081120002054'
+
+log_dir = '081120103118'
+log_dir = '081120103219'
+#log_dir = '081120121123'
+
+log_dir = '081120194702'
+log_dir = '081120160410'
+
+log_dir = '081120225229'
+log_dir = '081320014352'
+
+# td3, this has converged...
+log_dir = '081320122225'
+
+# sac
+#log_dir = '081320155817'
+
+# ppo
+#log_dir = '081320102703'
+#log_dir = '081320102953'
+log_dir = '081320162023'
+
+log_dir = '081320211154'
+
+log_dir = '081420112050'
+
+log_dir = '081420164646' # fast PPO
+
+# TD3
+log_dir = '081420152224' # crawl fast
+log_dir = '081420153644' # crawl but not as fast
+log_dir = '081420163551' # some kind of quick walk/trot
+
+log_dir = '081520001840' # 
+log_dir = '081420163551' # some kind of quick walk/trot
+#log_dir = '081420153644' # SAC, good training curve and low bound 
+#log_dir = '081420152224
+
+log_dir = '081520115836'
+log_dir = '081620004559'
+log_dir = '081620004155' # better than below
+#log_dir = '081620004213'
+
+log_dir = '081620154001'
+log_dir = '081620234710'
+
+log_dir = '081720135051'
+log_dir = '081720135412'
+log_dir = '081720124100'
+log_dir = '081620234710'
+log_dir = '081720124127'
+# log_dir = '081720192752'
+# log_dir = '081720135412'
+
+# TD3
+log_dir = '082520115131/19'
+log_dir = '082520123544/19'
+# PPO
+log_dir = '082520115639/19'
+
+log_dir = '082520171056/9'
+log_dir = '082520171033/16'
+log_dir = '082520174803/19'
+log_dir = '082520174728/19'
+
+log_dir = '082520213103/19'
+#log_dir = '082520213112/19'
+log_dir = '082520230314/9'
+
+log_dir = '082520230314/19'
+log_dir = '082520232946/19'
+
+log_dir = '082620103656/19'
+
+log_dir = '082620114625/16'
+log_dir = '082620114433/17'
+
+log_dir = '082620114625/17'
+#log_dir = '082620114433/19'
+
+log_dir = '082620141708/19'
+
+log_dir = '082520122451'
+
+log_dir = '082620151147/13'
+
+log_dir = '082620221511/11'
+#log_dir = '082620221527/12'
+#log_dir = '082620221450/8'
+#log_dir = '082720094400'
+
+log_dir = '082720134421'
+log_dir = '082720120517'
+log_dir = '082820000000'
+
+# 10/4/2020
+log_dir = '100420195305'
+# log_dir = '100420215827' # bad
+# log_dir = '100520015539' # bad
+
+# log_dir = '100520022842'
+# log_dir = '100520084804' # GOOD, impedance gallop/bound
+log_dir = '100520084804'
+
+# log_dir = '100620124826'
+
+log_dir = '101820005453'
+
+#####################################3 post ICRA2021
+log_dir = '110420201420' # positions only
+# log_dir = '110420201528' # impedance pos + Fn
+
+# log_dir = '110420232057' # much better curve than below
+# # log_dir = '110420232211' # has larger NN (worse??)
+
+# log_dir = '110520131536'
+
+# # test w larger ranges
+# log_dir = '110620005305'
+
+# log_dir = '110620111230' # IMPEDANCE, no penatly on energy
+# # log_dir = '110620112100' # N=10 lookahead traj
+# log_dir = '110620115806' # IMPEDANCE POS ONLY
+
+log_dir = '110620143834' # traj 10
+# log_dir = '110620175815' # traj 5
+# log_dir = '110620133157' # IMDPEANCE
+
+# log_dir = '110620190505' # test specific velocities
+
+# log_dir = '110620235858'
+
+log_dir = '110720130705' # GAS test
+# log_dir = '110720130250'
+
+# log_dir = '110720130309'
+
+log_dir = '110720204038' # small terrain
+log_dir = '110720130309' # really fast, energy penalty 0.005 instead of 0.1
+log_dir = '110720213448' # big terrain
+# log_dir = '110820001922' # w perturbations, and higher gains
+
+log_dir = '110820121110'
+
+log_dir = '110820130605' #
+# log_dir = '110820130554' # seems to fail for no reason? 
+
+log_dir = '110820133955'
+
+# log_dir = '110820182049'
+# log_dir = '110820225435'
+log_dir = '110820172934' # this is with vision
+
+# log_dir = '110820234426'
+# log_dir = '110820234513' # +1 survival bonus
+# log_dir = '110920004706' # no survival bonus
+
+# log_dir = '110920013757'
+
+############################################## 11/9/2020
+log_dir = '110920110157'
+# log_dir = '110920110149'
+# log_dir = '110920110725' # low kp, kd
+
+log_dir = '110920115051'
+log_dir = '110920115105'
+log_dir = '110920114810'
+log_dir = '110920124720'
+log_dir = '110920150239' # go 1m/s
+
+# new terrain
+log_dir = '110920161802'
+log_dir = '110920174817'
+
+log_dir = '110920191512'
+# log_dir = '110920174817'
+# log_dir = '110920185320'
+
+log_dir = '110920215432' # 0.05 m noise
+# log_dir = '110920215112'
+
+## reboot
+log_dir = '111020003027'
+# log_dir = '111020003053'
+# log_dir = '111020003159'
+
+log_dir = '111020024621'
+# log_dir = '111020024638'
+# log_dir = '111020031026'
+
+log_dir = '111020112547'
+# log_dir = '111020112603'
+
+log_dir = '111020144601'
+log_dir = '111020145537' # working .05m terrain
+# log_dir = '111020190847' # .1 m terrain (not working)
+
+# log_dir = '111020201131'
+# log_dir = '111020202954'
+
+log_dir = '111020234037' # extended ranges 
+log_dir = '111020234115'
+
+log_dir = '111120120829'
+log_dir = '111120120752'
+# log_dir = '111120120802'
+
+log_dir = '111120131642'
+
+log_dir = '111120154226'
+# log_dir = '111120201040' # energy penalty (seems to be poor)
+log_dir = '111120165716' # huge action space for rough terrain 
+log_dir = '111120180723' # history 3 (bounding gait)
+log_dir = '111120183358' # no history (only difference between these 2 is history) [weird trot]
+# log_dir = '111120212017'
+
+# trot test
+# log_dir = '111220015125'
+log_dir = '111220095351'
+
+# trot with different gains 
+log_dir = '111220133058' # 500,10
+# log_dir = '111220133114' # 1000, 30
+# log_dir = '111220133132' # 800, 10-20
+
+# on rough terrain trot
+log_dir = '111220182027'
+# log_dir = '111220182036'
+# log_dir = '111220182041'
+
+log_dir = '111320004029' # very fast and gazelle - like
+# log_dir = '111320003921' # impedance_pos, diagonal gallop gait (a bit weird looking)
+# log_dir = '111320030307'
+
+log_dir = '111320221357' # good bound with mass noise 
+# log_dir = '111320164800' # trot with mass noise very hard
+# log_dir = '111420015538'
+# log_dir = '111420015607'
+
+# overnight in SD
+# log_dir = '111420141749'
+# log_dir = '111420141820'
+log_dir = '111520214411'
+# log_dir = '111520214418'
+
+log_dir = '111520214411'
+# log_dir = '111520214418'
+
+# 11/16
+log_dir = '111620014203'  # good gallop 
+log_dir = '111620014223'  # good bound (more unstable?)
+log_dir = '111620014237'
+
+# 
+# log_dir = '111620123120' # w foot forces (good)
+log_dir = '111620123156' # no foot forces (bad?), no dynamics rand (but was it??)
+log_dir = '111620123204' # no foot forces (good) [GOOD]
+
+# log_dir = '111620143413'
+# log_dir = '111620143422'
+# log_dir = '111620143448'
+
+# w fixed energy over whole interval 
+# log_dir = '111620193034' # weight 0.1 (penalty too high, just "sits")
+# log_dir = '111620193110' # wight 0.01 (looks pretty good)
+# log_dir = '111620193118' # weight 0.005 (too low)
+
+# reboot 11/16/2020 night
+# log_dir = '111620234357' # energy 0.05, just stays standing 
+# log_dir = '111620234319' # energy .005, runs forward (awkward?)
+# log_dir = '111620234338' # energy .05, just stays standing 
+
+# DEFAULT instead of FWD_LOCOMOTION
+# log_dir = '111720011419'
+# # log_dir = '111720011447'
+# # log_dir = '111720011531'
+
+# # back to fwd locomotion 
+# log_dir = '111720053255'
+
+# log_dir = '111720053315' # .1, just stays standing 
+# # log_dir = '111720053255' # .1
+# # log_dir = '111720054123' # .01
+
+# # without extra observations, to test
+# log_dir = '111720121239'
+# log_dir = '111720124211'
+# log_dir = '111720133954'
+
+# log_dir = '111720143432'
+# # log_dir = '111720143442'
+
+# log_dir = '111720145337'
+# # log_dir = '111720145352'
+# log_dir = '111720151030'
+
+# log_dir = '111720160355' # .1 energy weight
+# log_dir = '111720160406' # .01 energy weight (better)
+
+#################
+log_dir = '111720181722'
+# log_dir = '111720181751' # 800/20  [seems better?]
+# log_dir = '111720185837'
+
+log_dir = '111720212621'
+# log_dir = '111720212655'
+# log_dir = '111720212731'
+
+log_dir = '111720230345' # energy weight .1, just stays standing 
+log_dir = '111720230353' # energy weight 0
+# log_dir = '111720230422'
+
+log_dir = '111820011158' # didnt learn
+log_dir = '111820011249' # pretty good, weird start
+# log_dir = '111820011505' # didnt learn
+
+log_dir = '111820015601' # action filter, looks smoother and better 
+log_dir = '111820015539'
+
+################# 11/18/2020
+# action filter tests
+log_dir = '111820111829' # .1 filter
+log_dir = '111820111922' # .2 filter
+# log_dir = '111820112042' # .5 filter
+
+log_dir = '111820125752' # energy wegiht .1, looks pretty good!
+# log_dir = '111820125808' # energy weight .01
+# log_dir = '111820134700' # just stayed standing
+# log_dir=  '111820145521' # just stayed standing
+# log_dir = '111820164040' # just standing
+# log_dir = '111820164008' # just standing 
+log_dir = '111820181642'
+# log_dir = '111820181711'
+
+log_dir = '111820185203'
+# log_dir = '111820185231' # 0.1, stays standing
+# log_dir = '111820185252' # 0 energy weight, start is always so weird
+
+log_dir = '111820201234'
+# log_dir = '111820201320'
+log_dir = '111820205006'
+log_dir = '111820205013'
+
+log_dir = '111820212417' # action filter true 
+# log_dir = '111820212428'
+
+# fwd_set_vel
+# log_dir = '111820221822' # rewards too high
+log_dir = '111820222554'
+# log_dir = '111820230540'
+# log_dir = '111820234557'
+log_dir = '111920014240'
+log_dir = '111920012024'
+log_dir = '111920015800'
+
+# overnight 11/19
+log_dir = '111920023013'
+# log_dir = '111920022945'
+# log_dir = '111920015800'
+
+log_dir = '111920112450'
+log_dir = '111920094828'
+log_dir = '111920125438'
+
+# log_dir = '111920131321'
+log_dir = '111920133943'
+# log_dir = '111920161102'
+
+# log_dir = '111920210630'
+
+log_dir = '112020030228' # kp 300
+# log_dir = '112020030239' # kp 600
+# log_dir = '112020030327' # kp 800
+
+##########################
+log_dir = '112020135338'
+# log_dir = '112020135406'
+
+# pmtg
+# log_dir = '112020212201'
+
+log_dir = '112020192620' # pos vel
+log_dir = '112020220458' # pmtg
+log_dir = '112020223734'
+log_dir = '112020234858'
+# log_dir = '112020223734'
+# log_dir = '112020231416'
+log_dir = '112120020251'
+
+
+log_dir = '112120023536'
+# overnight 11/20
+log_dir = '112120020251'
+# log_dir = '112120030349' # PMTG not working
+# log_dir = '112120011133' # pretty much working moving fwd, not falling, not optimal
+
+log_dir = '112120103629'
+
+# laikago PD test
+log_dir = '112120180516'
+
+log_dir = '112120160539'
+# laikago PD working (but only with large joint torque/vel)
+log_dir = '112120201225' # with huge velocity/torque limits, however
+log_dir = '112120203828' # with reasonable limits? check
+
+log_dir = '112120231352'
+
+log_dir = '112120233601'
+
+log_dir = '112220004225'
+# log_dir = '112220002826'
+log_dir = '112220002839'
+
+# log_dir = '112220004225'
+# log_dir = '112220021109'
+
+# laikago
+log_dir = '112220194648' # impedance, DEFAULT task
+log_dir = '112220195450' # impedance, FWD_LOCOMOTION
+log_dir = '112220201226' # pd
+
+# 11/23
+log_dir = '112320103112'
+log_dir = '112320105818'
+# pd
+# log_dir = '112320102506'
+log_dir = '112320125318'
+log_dir = '112320125522'
+
+log_dir = '112320195254'
+
+log_dir=  '112320231247'
+# log_dir = '112420000451'
+# log_dir = '112420001830' # learned nothing
+
+
+log_dir = '112520204823'
+# log_dir = '112520233322'
+log_dir = '112620144558'
+# log_dir = '112620154250'
+log_dir = '112620193327'
+log_dir = '112620205501'
+
+log_dir = '112720031433'
+
+log_dir = '112720033342'
+log_dir = '112720033408'
+
+log_dir = '112720151618'
+log_dir = '112720151631'
+
+# high cartesian gain, no noise, dynamics noise, dyn+env noise
+log_dir = '120820175325'
+# log_dir = '120820175241'
+# log_dir = '120820175215'
+
+# Default reward function
+log_dir = '120820220250'
+# log_dir = '120820220257'
+log_dir = '120920012431'
+log_dir = '120920122824'
+
+#################################################
+# jan 2021 
+# log_dir = '011521112025'
+# log_dir = '011521160528'
+# log_dir = '011521191916'
+
+log_dir = '011521220427'
+log_dir = '011621024608'
+
+################ joint PD
+log_dir = '011621135409'
+# log_dir = '011621135435'
+log_dir = '011621153811'
+
+# diff action repeat
+log_dir = '011621201122'
+# log_dir = '011621194706'
+# with impednace now
+log_dir = '011621235426'
+# log_dir = '011621235434'
+
+# action repeat impedance
+log_dir = '011721012727' # (20)
+log_dir = '011721012807' # bad, getting worse too (30)
+log_dir = '011721022912' # (50)
+log_dir = '011721134803' # need to visualize, looks like it is working really well 
+
+# reboot
+log_dir = '011821014426' # energy weight 0.005
+log_dir = '011821014438' # energy weight 0
+log_dir = '011821014528' # 10 s, energy weight 0
+
+log_dir = '011821105522'
+
+# kp 1000, kd 30
+# log_dir = '011821163821' # good
+# log_dir = '011821163844' # 0 energy penalty (higher gains)
+# kp 1000, kd 10
+# log_dir = '011821172503'
+# kp 800, kd 15
+# log_dir = '011821180551'
+
+log_dir = '012021154234'
+# log_dir = '012021161833' # kp 600
+# log_dir = '012021160831' # kp 800
+
+log_dir = '012021200159'
+# log_dir = '012021203348'
+# log_dir = '012021205646'
+# log_dir = '012021220920'
+
+log_dir = '012021230655'
+
+# log_dir = '012121102513' # NOT vecenv
+log_dir = '012121105205'
+
+log_dir = '012121120408'
+log_dir = '012121121627'
+# log_dir = '012121130017' # kp 1000, kd 30 [too stiff?]
+log_dir = '012121154415'  # kp 800
+log_dir = '012121182240' # kp 600
+# log_dir = '012121182546' # kp 700
+log_dir = '012121215721' # good, fast small steps, possibly increase energy penalty (0.001 now)
+
+# log_dir = '012221082229' # .01 energy (looks better than below, i.e. bounding vs trotting )
+# log_dir = '012221082142' # .005 energy
+
+# log_dir = '012221154213'
+# log_dir = '012221150650'
+# log_dir = '012221183648'
+# new reward funciton
+# log_dir = '012221232454'
+# log_dir = '012221232516'
+
+log_dir = '012321121947'
+log_dir = '012321121956'
+
+log_dir = '012321141532' # reward 10 for completing
+# log_dir = '012321141603'
+
+"""
+CHange reward -  distance from (20,0), or something similar, so get to goal location as fast as possible, large reward for completion 
+"""
+log_dir = '012321172142'
+# log_dir = '012321182452'
+# log_dir = '012321184232'
+# log_dir = '012421012229'
+log_dir = '012421104953'
+
+log_dir = '012421105041' # good
+# log_dir = '012421114054'
+log_dir = '012421121536' # seems to be working (just x direction now, no additional reward)
+# log_dir = '012421152214'
+
+# reboot 1/24/21
+log_dir = '012421215718' # 700,15
+# log_dir = '012421220507' # 500,10
+# log_dir = '012421220233' # cool bounding [good], 0.001 energy penalty, 500,10
+
+log_dir = '012521092700'
+log_dir = '012521092739' # resetting?
+# log_dir = '012521092810'
+
+# vel
+log_dir = '012521121420'
+# log_dir = '012521134129' # PMTG
+log_dir = '012521164628' # -10 penalty for falling
+# log_dir = '012521195356'
+
+log_dir = '012521214314'
+# log_dir = '012521233119'
+log_dir = '012621011827'
+
+# terrain and dyn noise 
+# log_dir = '012621103850'
+# log_dir = '012621103901'
+# more tests
+log_dir = '012621113550'
+# log_dir = '012621111405'
+log_dir = '012621114350'
+# log_dir = '012621120926' # flat terrain, no noise, body pos in obs
+log_dir = '012621121648' # weird sideways gait, no noise, over 10-12 m/s
+log_dir = '012621124738'
+log_dir = '012621180207'
+# log_dir = '012621210801' # went down over time..
+log_dir = '012621222948'
+
+# reboot 1/27
+log_dir = '012721121250' # energy weight 0.005, mostly just standing (non optimal, but doesn't fall)
+log_dir = '012721115155' # energy weight 0.01, slow crawl gait
+log_dir = '012721121604'
+# log_dir = '012721132550' # with time in obs space,  no energy weight (14-15 m/s!!)
+log_dir = '012721145856' # seems good! 0.001 energy weight
+log_dir = '012721153436'
+log_dir = '012721172725' # max reward of 0.05 for fwd velocity 
+log_dir = '012721215749'
+# log_dir = '012721220035'
+log_dir = '012821010545'
+log_dir = '012821093614'
+
+# ES
+# log_dir = '012821132738'
+# log_dir = '012821132239'
+# ARS
+# log_dir = '012821160016'
+log_dir = '012821193555'
+
+# GREAT
+log_dir = '012821224212' # 500,10, -10 penalty , conservative legs remain under hips mostly 
+# log_dir = '012821221137' # no penalty
+# log_dir = '012921010825' # terrain, -10 penatly
+# log_dir = '012921103907' # terrain, -10 penalty, 700,20 gains (too much)
+# log_dir = '012921115541' # 700, 15, cheats and goes left 
+# walls
+log_dir = '012921150109' # 700, 15, nice curve 
+# log_dir = '012921175313' # 800, 15
+log_dir = '012921185752' # 500, 10
+log_dir = '012921223641'
+# log_dir = '013021012104'
+# log_dir = '013021011922'
+
+log_dir = '013021122029'
+# log_dir = '013021122059'
+
+# log_dir = '013021144320'
+# test different energy coefficients 
+log_dir = '020121001142' # 0.001 (fast bound)
+log_dir = '020121001158' # 0.005 (fast trot)
+log_dir = '020121001238' # .01 (slow, stable)
+# now with terain
+log_dir = '020121125635' # 0.001
+log_dir = '020121125702' # 0.005, CHECK: 0 fallls!!! 
+# log_dir = '020121125735' # 0.01 (stays standing)
+
+# log_dir = '020221020521' # 2000, 30
+log_dir = '020221105628' # 1000, 30
+# log_dir = '020221124836'
+
+# reboot
+log_dir = '020321112021'
+log_dir = '020321112029' # good progress [GOOD, sent to prof]
+# log_dir = '020321112058' # stand no fall
+# obs history 3
+# log_dir = '020321125303' # 1000, 30, 0.005
+# log_dir = '020321152833' # 800, 15, 0.001 (shaky)
+# log_dir = '020421002732'
+
+log_dir = '020421102044' # no dynamics noise 
+log_dir = '020421133724' # spherical flat, converged, looks great (but low)
+log_dir = '020421142115'
+# log_dir = '020421132406'
+# log_dir = '020421161808'
+
+# log_dir = '020421210043'
+
+# des vel
+# log_dir = '020421231050'
+# log_dir = '020521011837'
+
+log_dir = '020521105321' # follow desired velocity, working super well (but motion is low?), 1000, 30
+# log_dir = '020521151917'
+# log terrain
+# log_dir = '020521160244'
+# log_dir = '020521182255'
+# log_dir = '020521213808'
+
+log_dir = '020621012326' # joint PD only, check?
+# simple reward function below
+# log_dir = '020621022842' # joint PD only, no rough
+log_dir = '020621023738' # joint+Cartesian PD, rough
+# log_dir = '020621121506'
+
+# joint + Cartesian
+log_dir = '020621140251'
+# joint only 
+log_dir = '020621140406'
+log_dir = '020621150129'
+# log_dir = '020621155836'
+# log_dir = '020621174854'
+
+log_dir = '020621175228'
+# log_dir = '020621191208'
+
+# log_dir = '020621210502' # learns to run backwards 
+
+# differet gains for joint/cartesian
+log_dir = '020621224721' #GREAT!! straight, looks very optimal (a little low maybe?) (lower kp 50, 0.5), also low kpCartesian
+log_dir = '020621234407'   # weird forward lean (high joint, low kpCartesian)
+log_dir = '020621234544' # gallop floating (cool) (high cartesian and high joint)
+
+# high Cartesian and high joint
+# log_dir = '020721025220'
+# high Cartesian low joint,
+log_dir = '020721025423' # a bit jerky/stiff, but getting over obstacles well (really moves feet up)
+# low Cartesian, low joint
+# log_dir = '020721130904'
+
+# log_dir = '020721201523'
+
+# log_dir = '020721201428'
+# log_dir = '020721201523' # low, slow, gets stuck
+# log_dir = '020721201622' # can get over better
+
+# log_dir = '020821014641'
+# log_dir = '020821014742'
+
+log_dir = '020821103228'
+
+log_dir = '020821161854' # picking feet up well (high cartesian [800,15], low joint [50,0.5])
+# log_dir = '020821161938'
+# log_dir = '020821212040'
+
+log_dir = '020821225342'
+log_dir = '020921005831'
+log_dir = '020921015804' #  50, 0.5, 800, 15 (pitch, jump) [old comment: really stiff/vertical]
+# log_dir = '020921122116' # 20, 1, 2000, 50 [trips, not picking up feet enough]
+#
+# log_dir = '020921161259' # pretty much working over low terrain  
+# log_dir = '020921223911' # lower energy penalty
+# log_dir = '021021015714' # higher vel reward on flat, weird gait
+# log_dir = '021021103739'
+# log_dir = '021021135127'
+
+# low energy penatly
+log_dir = '021021200007'
+log_dir = '021021200042' # obs history 
+log_dir = '021021233217' # 0.002 energy penalty 
+# log_dir = '021121001046' # with action filter 0.3
+# log_dir = '021121015201' # with action filter 0.1
+log_dir = '021121094919' # w action filter 0.5, obs history 3
+
+# add in actions into obs space
+log_dir = '021121130010'
+# log_dir = '021121140608'
+# log_dir = '021121141548'
+
+log_dir = '021121160003' # regular 
+log_dir = '021121160156' # saturate reward (good)
+log_dir = '021121180213'
+
+log_dir = '021121194601' # action repeat 50 w filter [slow but robust, doesn't fall over]
+
+################### fixed spherical range
+log_dir = '021221011202' # just stand
+# log_dir = '021221020939'
+# log_dir = '021221033656'
+
+log_dir = '021221104722' # stand, obs history 1
+log_dir = '021221104843' # obs history 2
+log_dir = '021221110055' # action filter 
+# action repeat 30
+# log_dir = '021221121536'
+log_dir = '021221121749' 
+
+log_dir = '021221140508' # no rand dyn, aciton repeat 2
+# log_dir = '021221150251' # flat
+
+# test normal impedance
+# log_dir = '021221162507'
+# log_dir = '021221175811'
+log_dir = '021221185354' # a bit conservative w/ energy penalty 0.01? (800,15)
+# log_dir = '021221194514' # energy 0.1 (bad)
+# log_dir = '021221195530' # energy 0.05, stands (bad)
+
+
+# log_dir = '021221211722' # 0.005 w 500, 10, obs 1
+log_dir = '021221211917' # obs 2, looks great!
+
+# # extend ground (move over 80m), 500, 10
+# log_dir = '021321004003' # obs 1, extended ground so it can run farther as needed (not very realistic)
+# log_dir = '021321004139' # obs 2
+# # also check 800, 15
+# log_dir = '021321004240' # obs 2, looks awesome
+# log_dir = '021321025801' # obs 2, spherical (no ik)
+# log_dir = '021321030133' # obs 2, spherical w ik
+
+# # wrong cost function , getting reward of 0.1 every time step, but learns to stand very quickly 
+# # log_dir = '021321133703'
+# # log_dir = '021321133804'
+
+# # log_dir = '021321132943'
+# log_dir = '021321135701' # spherical
+# # log_dir = '021321135752' # impedance pos only
+# log_dir = '021321144318' # spherical ik
+
+# log_dir = '021321154432'
+# log_dir = '021321154811'
+# log_dir = '021321171723' # imp pos ik
+log_dir = '021321183815' # imp spherical
+# log_dir = '021321192955' # rough terrain imp
+# log_dir = '021321213729'
+
+log_dir = '021321222822' 
+# log_dir = '021321221744' # this was with entropy in ppo 0.01 (bad)
+# log_dir = '021321231906' # entropy 0.001
+
+log_dir = '021321235233' # imp, larger y range , got past the blocks usually
+# log_dir = '021421011259' # larger blocks
+log_dir = '021421011348' # with ik as well 
+
+# log_dir = '021421041121' # imp, no energy penalty
+# log_dir = '021421041156' # imp ik, no energy penalty
+
+# action filter 0.3
+# log_dir = '021421113048' # imp (gains seem low to move feet up/down), 800,15
+log_dir = '021421113005' # imp ik [GOOD MAKES PROGRESS], 20, 0.2 gains
+# log_dir = '021421113126' # spherical ik
+# log_dir = '021421132838' # imp gains 3000, 50
+
+# large gains, also action filter 0.1 (check)
+# log_dir = '021421144318' # 0.5
+# log_dir = '021421144401' # 0.1
+
+# new leg space
+# log_dir = '021421163818'
+log_dir = '021421190446' # leg space ik. 25, 0.3, hips have a bit extra movement? but running 4 m/s! (lower hip range?)
+# log_dir = '021421210140' # max vel reward is 2
+
+# log_dir = '021521013529' # 35, 1 gains, really stiff, imp ik
+
+# log_dir = '021521120356' # imp ik
+log_dir = '021521120435'
+log_dir = '021521154215' # imp ik, 25, 0.3 stiff
+
+# -100 penalty for falling (hope to be more conservative?)
+log_dir = '021521180836'
+# log_dir = '021521190438' # 0.1 filter
+# log_dir = '021521194530' # NO DYNAMICS NOISE 
+
+
+log_dir = '021521231728' # imp ik flat
+log_dir = '021521231841' # imp ik flat, -100 penalty for fall, a lot more conservative
+log_dir = '021521231942' # max reward 2 m/s
+
+# limit speed to 2m/s
+log_dir = '021621013139'
+# log_dir = '021621013212'
+log_dir = '021621013253'
+
+# with action filter flat
+log_dir = '021621020820' # w action filter on flat looks weird and jerky with IMP
+log_dir = '021621020901' # without action filter (slower start, but much better performance )
+# spherical ik
+log_dir = '021621025746'
+
+log_dir = '021621034946'
+log_dir = '021621034828'
+
+log_dir = '021621040455' # imp pos, unstable but fast
+log_dir = '021621034946' # spherical ik, RR leg not really touching
+log_dir = '021621034828' # 0.01 imp
+
+# remove limb dynamics 
+log_dir = '021621115056' # spherical ik, 0.001 energy
+# log_dir = '021621115243' # imp, 0.005
+log_dir = '021621115302' # spherical, just stands
+
+log_dir = '021621124959'
+# add action filter weight in init
+log_dir = '021621134424' # action filter weight 0.2, flat spherical ik pretty reasonable 
+log_dir = '021621144431' #  very stiff
+log_dir = '021621160837' # track vel. stiff
+# log_dir = '021621175858'
+
+# weird reboot thing
+log_dir = '021621215748'
+log_dir = '021621215816' # pretty good, no energy penalty, action filter 0.5, imp ik (a little stiff?)
+# log_dir = '021621215858'
+# log_dir = '021621234603'
+
+# log_dir = '021721010110' #pmtg
+log_dir = '021721015446'
+
+# overnight 2/16
+log_dir = '021721024208' # high gain imp
+log_dir = '021721030352' # high gain imp, no filter
+log_dir = '021721030620' # pmtg noisy terrain high gain
+
+# 2/17
+log_dir = '021721113644' # imp high gain
+log_dir = '021721113539' # pmtg, actino filter 0.4 (seems better)
+log_dir = '021721113500' # pmtg, action filter 0.1
+
+
+log_dir = '021721144957' # imp, 800, 15, aciton filter 0.6
+# log_dir = '021721145024' # imp, 1000, 30, aciton filter 0.6
+# log_dir = '021721144904' # pmtg, lower nominal height now, very high cartesian gains on accident 
+
+
+
+log_dir = '021721160047' # pmtg 2000 15
+log_dir = '021721155939' # pmtg 800 15 (this is better), not going fast enough thou
+# log_dir = '021721155843' # imp 1000 20
+
+
+log_dir = '021721172422'
+log_dir = '021721172457'
+log_dir = '021721174753'
+
+# took out survival reward. high gains, increasing action filter component
+log_dir = '021721184348'
+# log_dir = '021721184741'
+# log_dir = '021721184839'
+
+
+
+log_dir = '021721184348' # no action filter., 2000 15, too conservative can't do anything , energy penalty 0.005
+log_dir = '021721184741' # action filter 0.5 w above (better)
+log_dir = '021721184839' # action filter 0.2 w above (actually makes some progress but seems pretty stiff )
+
+
+
+log_dir = '021921160448' # 800 15 no survival reward 
+# log_dir = '021921160519' # 800 15 with survival reward
+log_dir = '021921160619'
+
+# increase limits for body vel
+# log_dir = '021921182048'
+# log_dir = '021921182124' # 0.05 energy (too high)
+log_dir = '021921183855'
+# log_dir = '021921191435' # 500 10
+# log_dir = '021921210630'
+
+
+# back to simple obs space, .01 enery penalty 
+log_dir = '021921231904' # 800 15 (nice bound) [same as 2 below]
+# log_dir = '021921231936' # 500 10
+# log_dir = '021921232213' # 800 15 [same as 2 above]
+
+# 0.005 energy
+# log_dir = '022021024305' # 500, 10, not as good 
+# log_dir = '022021024201'
+
+# y is in obs space 
+
+log_dir = '022021113429' # higher weight on orientation
+# log_dir = '022021113513' # also higher weight on y
+log_dir = '022021113759' # max vel reward is 5 m/s 
+
+
+log_dir = '022021145230' # max vel 6, .01 energy 
+log_dir = '022021150914' # 0.005, 500, 10, MAX 10, very good
+log_dir = '022021150945' # .01, 500, 10. very good 
+
+
+# NEXT: test specific velocities, w/ and w/o ramp up only, change reward to alpha*(1 - abs(actual-current))
+# specific velocity
+# log_dir = '022021175408'
+log_dir = '022021214120' # new reward function 
+# log_dir = '022121011053'
+
+
+# log_dir = '022121120032' # 800, 15, 0.05 energy, not working great
+log_dir = '022121120251' # 600, 10 working well, 0.01 energy, pretty good
+
+
+log_dir = '022121130944' # 600, 10 rough
+log_dir = '022121134601' # 700, 12, rough
+# log_dir = '022121155851' # 700,12 slightly less rough 
+# log_dir = '022121175223' # flat, lower range 
+
+log_dir = '022121192347' # terrain, [good[] at low speeds 
+# log_dir = '022121204010' # not straight, so increased orientation weight
+log_dir = '022121224017' # energy weight 0.05, terrain (good - works pretty well)
+# log_dir = '022221003216' # energy 0.03, flat
+# next test, rough terrain , lower energy contribution, 600 10 seems good 
+
+# log_dir = '022221014628' # 0.1 energy, just standing . FWD
+
+# log_dir = '022221101812' # 0.1 just stands
+# log_dir = '022221102000'
+# log_dir = '022221121612'
+
+# [GAZEBO] fwd locomotion, one of these transferred well, I think the last one? 
+log_dir = '022221144954' # energy weight 0.005 (max vel 5) [kind of weird bound rear, trot front]
+log_dir = '022221144726' # energy weight 0.01 (max vel 10) [ trot]
+# log_dir = '022221165809' # energy weight 0.008 (max vel 8) [trot] 
+
+
+# post gazebo, try to make more robust 
+# log_dir = '022221195633' # 0.03 energy, just stands
+
+########################################################################### GREAT
+# log_dir = '022221195933' # works with rough terrain, though not trained on it, 12kg [GREAT, videos]
+# log_dir = '022221200525' # rough terrain, 0.008 energy
+# log_dir = '022221211207' # up to 15 kg added, works great 
+log_dir = '022221223302' # [GREAT, PAPER VIDEOS], 15kg, 2.0 vel weight, rough
+# 0.025 max height above
+# log_dir = '022321012915' # same as above with 0.04m in height terrain
+# log_dir = '022321013145' # up to 25kg mass 
+
+# log_dir = '022321112352' # terrain 0.04, mass 12kg
+# log_dir = '022321112500' # terrain 0.025, mass 15kg (run again for data), pacing gait
+# log_dir = '022321124532' # terrain 0.025, mass 15kg (run again for data) [not as high but looks good]
+
+
+# log_dir = '022321150318' # smaller action space, 0.04m terrain, not working very well
+
+# pd
+# these didnt work
+# log_dir = '022321181220' # 100, 2, extremely stiff (bad)
+# log_dir = '022321202044' # 50, 1
+# these working 
+# log_dir = '022321212942' # 30, 0.5, smaller range , way too jittery, but good reward 
+# log_dir = '022321214224' # 20, 0.5
+
+
+# log_dir = '022421013117' # 15, 0.2 [not as stiff, moves hips circular]
+# log_dir = '022421015032' # 20, 0.5 again for paper 
+
+# these are a bit exaggerated. but look ok
+# log_dir = '022421105437' # 20, 0.3
+# log_dir = '022421105525' # 20,0.5
+
+# PAPER IMPEDANCE FLAT
+# log_dir = '022421105749' # impedance flat
+log_dir = '022421145626' # impedance flat [REALLY good]
+# log_dir = '022421145624' # impedance flat [not so good]
+# log_dir = '022421181547' # impedance flat
+
+# PAPER PD FLAT
+# log_dir = '022521000604'
+# log_dir = '022521000613'
+# log_dir = '022521000616'
+
+# log_dir = '022521094212' # 25, 0.5
+# log_dir = '022521094257' # 30, 0.5
+# log_dir = '022521094418' # 50 1
+# log_dir = '022521143659' # 50 1
+# log_dir = '022521143710' # 50 1
+# log_dir = '022521143803' # 50 .1
+
+
+# log_dir = '022521181835' # impedance rough , 700 12 [BEST ROUGH PERFORMANCE]
+# log_dir = '022521231627' # impedance rough 700 12
+# log_dir = '022521205944' # 1500 25?
+
+# imepdance rough 
+#log_dir = '022621040232' # good
+# log_dir = '022621040205' # this one good (trot run)
+# log_dir = '022621011724'
+
+
+# # PAPER
+# # no randomization at all
+# log_dir = '022721112806'
+# # mu only 
+# log_dir = '022721112859'
+# # added mass, but no dynamics randomization 
+# log_dir = '022721113002'
+
+# # dynamics randomization 0.2
+# log_dir = '022721174851'
+# # dynamics randomization 0.1 
+# # log_dir = '022721174939'
+# # dynamics randomizaiton 0.1 and load
+# log_dir = '022721175038'
+
+# dyn rand 0.2
+# log_dir = '022821002616'
+# dyn rand 0.2
+# log_dir = '022821002639'
+
+# log_dir = '022821031643'
+
+# pd with ranges form gazebo
+# log_dir = '030121184552' # 50 1
+# log_dir = '030121184617' # 50 .1
+# log_dir = '030121184700' # 30 .1
+
+# extend ranges, PD
+# log_dir = '030121232702' # 25, .1
+# log_dir = '030121232632' # 50, .1 just standing for range 
+# log_dir = '030121232550' # 100, .1
+# log_dir = '030221000226'
+# log_dir = '030221012708'
+# log_dir = '030221130840'
+# log_dir = '030221130908' # 50 0.1
+# log_dir = '030221150024' # 30 0.1
+
+# log_dir = '030221181035' # 50 0.1
+# log_dir = '030221181114' # 30 0.5 
+# log_dir = '030221200143' # 50 0.5
+# # log_dir = '030221200210' # 70 0.5 
+# log_dir = '030221220307' # 70 0.5 different range 
+# log_dir = '030221231535' # 40 0.5
+
+# log_dir = '030321004115' # 50 1, legs behind
+log_dir = '030321004217' # 50 1, legs behind
+log_dir = '030321011914' # 40 0.5
+# log_dir = '030321013410' # 40 0.5
+# log_dir= '030321021108' # not so good 
+
+# reboot, check several joint ranges, 40 0.5
+log_dir = '030321121452' # 40 0.5, decent transfer even with rear legs behind 
+# log_dir = '030321121524'
+# log_dir = '030321121607' # suboptimal ranges 
+
+
+# log_dir = '030321145744' # 50 0.5 (looks ok, one rear leg lagging )
+log_dir = '030321145809' # 50 1 (looks ok, one rear leg lagging)
+log_dir = '030321153225' # 30 0.5
+log_dir = '030321183505' # 50 0.1 (bad)
+log_dir = '030321183600' # 30 0.1 (pd working pretty well on transfer, though look suboptimal)
+log_dir = '030321205207' # 60 1 
+
+log_dir = '030321215557' # 60 0.5 
+log_dir = '030321221748' # 70 0.5 
+
+log_dir = '030421014134' # 50 0.5 
+log_dir = '030421014200' # 50 0.5 different range 
+# log_dir = '030421014229' # 50 1 
+# limit hip ranges for PD
+log_dir = '030421023409'
+# log_dir = '030421023454'
+# log_dir = '030421023618'
+
+log_dir = '030421095925' # 100 0.5 (bad)
+log_dir = '030421095948' # 100 1
+# log_dir = '030421100019' # 50 1
+####################################################### For videos
+# log_dir = '021421113005'
+# log_dir = '021421190446' # spherical ik on rough looking good
+
+# these supposedly good but with old obs space w/o actions
+# log_dir = '020821161854' 
+# log_dir = '020321112029'
+######################################3 old tests rechecking.. where were the best policies??
+# log_dir = '021321004240' # obs 2, looks awesome
+# log_dir = '021421113005'
+# log_dir = '021221211917' # obs 2, looks great!
+# log_dir = '020121001142' # 0.001 (fast bound) # no action last_rl in quadruped
+# # log_dir = '020121001158' # 0.005 (fast trot)
+################################## Plan: no energy penalty, add in after already have locomotion working (warm start)
+
+
+
+################### post deadline
+log_dir = '030921233505'
+log_dir = '031021102509'
+# different gains
+# log_dir = '031121121231' # 2000 25 (still improving, gait strange but very stable)
+# log_dir = '031121121302' # 1500 12 (not very good)
+# log_dir = '031121121325' # 700 12
+
+log_dir = '031321150601' # 1500 25
+
+
+# sys.exit()
+######################################################## plot for several (tests - don't worry if not working)
+if 0:
+    import matplotlib
+    import matplotlib.pyplot as plt
+    timesteps_total = []
+    episode_reward_mean = []
+    episode_reward_max = []
+    episode_reward_min = []
+    episode_len_mean = []
+
+    scatter_t_totals = []
+    scatter_eprews = []
+    scatter_eplens = []
+
+    last_dir_num = int(log_dir.split('/')[-1])
+    if len(str(last_dir_num)) == 2:
+        log_idx = 3
+    elif len(str(last_dir_num)) == 1:
+        log_idx = 2
+    else:
+        log_idx = 0
+
+    for i in range(last_dir_num+1):
+        curr_dir = get_latest_directory(get_latest_directory(log_dir[:-log_idx] + '/' + str(i)))
+        # split_dir = np.char.split(log_dir,sep='/')
+        # split_dir = log_dir.split('/')
+        # for x in split_dir:
+        #     print (x)
+        # print('split_dir', split_dir)
+        # print('index now', split_dir[0][0])
+        # print('split', np.char.split(log_dir,sep='/'), np.char.split(log_dir,sep='/')[-1])
+        print('dir i is ', curr_dir)
+        # curr_dir = get_latest_directory(get_latest_directory(log_dir.split('/')[-1] + '/' + str(i)))
+        data_frame, t_totals, eprews, eplens = load_rllib_v2(curr_dir)
+
+        timesteps_total.extend(data_frame['timesteps_total'])
+        episode_reward_mean.extend(data_frame['episode_reward_mean'])
+        episode_reward_max.extend(data_frame['episode_reward_max'])
+        episode_reward_min.extend(data_frame['episode_reward_min'])
+        episode_len_mean.extend(data_frame['episode_len_mean'])
+        scatter_t_totals.extend(t_totals)
+        scatter_eprews.extend(eprews)
+        scatter_eplens.extend(eplens)
+
+
+    plt.plot(timesteps_total, episode_reward_mean, label='episode_reward_mean')
+    plt.plot(timesteps_total, episode_reward_max, label='episode_reward_max')
+    plt.plot(timesteps_total, episode_reward_min, label='episode_reward_min')
+    plt.legend()
+    plt.title('Episode reward stats')
+    plt.show()
+
+    plt.plot(timesteps_total, episode_len_mean, label='episode_len_mean')
+    plt.legend()
+    plt.title('Episode length')
+    plt.show()
+
+    EPISODES_WINDOW = 100
+    from usc_learning.utils.utils import window_func
+    plt.scatter(scatter_t_totals, scatter_eprews, s=2)
+    x, y_mean = window_func(np.array(scatter_t_totals), 
+                            np.array(scatter_eprews), 
+                            EPISODES_WINDOW, 
+                            np.mean)
+    plt.plot(x, y_mean, color='red')
+    plt.title('All Episode Rewards')
+    plt.show()
+    plt.scatter(scatter_t_totals, scatter_eplens, s=2)
+    x, y_mean = window_func(np.array(scatter_t_totals), 
+                            np.array(scatter_eplens), 
+                            EPISODES_WINDOW, 
+                            np.mean)
+    plt.plot(x, y_mean, color='red')
+    plt.title('All Episode Lengths')
+    plt.show()
+########################################################

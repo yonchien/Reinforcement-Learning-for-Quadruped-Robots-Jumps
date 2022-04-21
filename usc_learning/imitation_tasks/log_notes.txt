@@ -1,0 +1,453 @@
+
+interm_dir = "./logs/intermediate_models/"
+log_dir = interm_dir + '070320172207'
+log_dir = interm_dir + '070420184802' # no early stopping
+log_dir = interm_dir + '070520000042' # good that trained with early stopping
+
+log_dir = interm_dir + '082820162525'
+
+log_dir = interm_dir + '082820190926'
+log_dir = interm_dir + '082820162525'
+log_dir = interm_dir + '082920100523' 
+
+# SAC
+log_dir = interm_dir + '090320233209' # 1 hidden layer of 12
+log_dir = interm_dir + '090420095453' # 200, 100
+log_dir = interm_dir + '092220163100' # 512, 256
+
+log_dir = interm_dir + '092320001344' # foward 180 varial flip
+log_dir = interm_dir + '092220163100' # foward 180 varial flip (double flip!)
+
+# PPO
+# log_dir = interm_dir + '092220114839'
+# log_dir = interm_dir + '092220114310'
+
+# # SAC
+# log_dir = interm_dir + '092220094405'
+#log_dir = interm_dir + '092220093918' # this one is really good
+log_dir = interm_dir + '092320221441'
+
+#log_dir = interm_dir + '092420165932'
+
+# SAC
+log_dir = interm_dir + '092520001313' # vertical, shaky
+
+#log_dir = interm_dir + '092520001313' # vertical, shaky
+
+#log_dir = interm_dir + '092520003707' # got on, mini hop
+#log_dir = interm_dir + '092520004025' # got on
+#log_dir = interm_dir + '092520004041' # back legs caught
+#log_dir = interm_dir + '092520004339' # hits side
+log_dir = interm_dir + '092520004354' # hits side
+# log_dir = interm_dir + '092520022822'
+# log_dir = interm_dir + '092520105606'
+# log_dir = interm_dir + '092520112754'
+
+#log_dir = interm_dir + '092520125302'
+#log_dir = interm_dir + '092720003327'
+
+# PPO joint PD, all pretty bad, training curves increase for the most part
+#	but vary and go down, also jerky on ground, not smooth/optimal
+log_dir = interm_dir + '092720003335' # legs caught
+# log_dir = interm_dir + '092720003428' # jerky, not good
+# log_dir = interm_dir + '092720003500'
+# log_dir = interm_dir + '092720003756' # legs caught
+# log_dir = interm_dir + "092720003809" # pretty good
+# log_dir = interm_dir + '092720162611'
+# log_dir = interm_dir + '092720162629' 
+# log_dir = interm_dir + '092720165546'
+
+# SAC?
+#log_dir = interm_dir + '092520112754'
+
+# Cartesian PD
+log_dir = interm_dir + '100120013626' # choose actions at 0.02
+log_dir = interm_dir + '100120022010' # here and below, have lower joint gains (not as good?), and choose actions at 0.01
+
+#log_dir = interm_dir + '100120133819' # dynamcs noise 
+
+# SAC, not bad 
+# log_dir = interm_dir + '100120200637'
+# log_dir = interm_dir + '100120200626' # dynamics noise 
+
+# PPO, w Cartesian + joint
+log_dir = interm_dir + '100620012238'
+# log_dir = interm_dir + '100620010818' # w noise
+
+log_dir = interm_dir + '100320192041' # good! and good training curve
+# log_dir = interm_dir + '100320192414' # twists, not very good (or training curve either), must be w noise
+
+# log_dir = interm_dir + '100620100326' # curve good, policy good
+# log_dir = interm_dir + '100620100356' # not good, slips
+
+# log_dir = interm_dir + '100820003649' # rotated. slippery
+# log_dir = interm_dir + '100820121033' # foot gets caught
+
+log_dir = interm_dir + '100820194709' # this one is great, slippery terrain but diff gains works well
+log_dir = interm_dir + '100920110357' # (check) - just dynamics noise, not good
+log_dir = interm_dir + '100920110409' # !!!! body slides away - something wrong!
+log_dir = interm_dir + '100920170821' # legs hook under platform
+log_dir = interm_dir + '100920170836'
+log_dir = interm_dir + '101020031246'
+
+log_dir = interm_dir + '101120122159'
+log_dir = interm_dir + '101120123128'
+# log_dir = interm_dir + '101120134448'
+log_dir = interm_dir + '101120141118'
+
+########################################################################3
+log_dir = interm_dir + '101220141703' # just base noise, pretty good
+log_dir = interm_dir + '101320001712' # better than above
+log_dir = interm_dir + '101320001735' # slides on ground to the right to start, but jumps back towards center [GOOD!]
+# log_dir = interm_dir + '101320001803' # great
+# log_dir = interm_dir + '101320002238' # bad, inside ground? 
+# log_dir = interm_dir + '101320002303' # slide, bad, inside ground
+
+log_dir = interm_dir + '101320151008' # front step
+# log_dir = interm_dir + '101320162913'
+log_dir = interm_dir + '101320163732' # back step
+
+# log_dir = interm_dir + '101320094414' # not sure
+
+# log_dir = interm_dir + '101320233119'
+log_dir = interm_dir + '101320234259'
+log_dir = interm_dir + '101420095702'
+
+# two steps, mu=1
+log_dir = interm_dir + '101420121251'
+# two steps, different friction coefficients
+# log_dir = interm_dir + '101420141148'
+
+# log_dir = interm_dir + '101420220014'
+# log_dir = interm_dir + '101420203440'
+# log_dir = interm_dir + '101420220040'
+# log_dir = interm_dir + '101420234012'
+
+# log_dir = interm_dir + '101520105626'
+log_dir = interm_dir + '101520135110' # good ? (update 2: didn't work)
+# log_dir = interm_dir + '101520105114' # horrible. legs catch and flips
+# log_dir = interm_dir + '101520105123' # not good
+# log_dir = interm_dir + '101520105414' # horrible
+log_dir = interm_dir + '101520152926' # learns to jump farther!
+# log_dir = interm_dir + '101520134800' # horrible
+log_dir = interm_dir + '101520162013'
+# log_dir = interm_dir + '101520160345' # good!
+
+# log_dir = interm_dir + '101520173725' # bad
+# log_dir = interm_dir + '101520223430'
+
+# log_dir = interm_dir + '101520222231' # bad
+# log_dir = interm_dir + '101520223430' # bad
+
+log_dir = interm_dir + '101620125414'
+
+# SAC
+# log_dir = interm_dir + '101520223119' # good!
+
+# 4 boxes
+# log_dir = interm_dir + '101720012654'
+# log_dir = interm_dir + '101720012219'
+
+# compare lower joint gains, both with Cartesian only, and cartesian + joint contribution
+# log_dir = interm_dir + '101720135554'
+# log_dir = interm_dir + '101720135546'
+
+log_dir = interm_dir + '101720165203'
+log_dir = interm_dir + '101820013503'
+log_dir = interm_dir + '101820104828' # pretty good!
+# log_dir = interm_dir + '101820013525'
+# 
+# with +/- reward on final pos
+# log_dir = interm_dir + '101820133112'
+# log_dir = interm_dir + '101820172427'
+
+# joint space
+log_dir = interm_dir + '101820205555' # actually pretty good despite small gains
+# log_dir = interm_dir + '101820205606'
+# log_dir = interm_dir + '101820213905'
+
+log_dir = interm_dir + '101820185942'
+
+
+# multiple traj ( w backflip)
+log_dir = interm_dir + '102020001832'
+log_dir = interm_dir + '102020004316' # (400,4) ok - roughly same? 
+log_dir = interm_dir + '102020004335' # horrible! (50,1) is too low
+# removed orientaiton end condition
+log_dir = interm_dir + '102020113334'
+# log_dir = interm_dir + '102020113639' # not great, low joint gain
+log_dir = interm_dir + '102020113658'
+
+# remove backflip, all trajectories below have torques in actual range
+log_dir = interm_dir + '102020144820' #
+# log_dir = interm_dir + '102020144843' # use default gains (kp 300, kd 3) - think it may be worse for learning 
+# log_dir = interm_dir + '102020144900' # bad, also joint gaines too low (50, 1)
+# log_dir = interm_dir + '102020155739' # bad. joint gains were too low (50, 1)
+log_dir = interm_dir + '102020155806' 
+
+# log_dir = interm_dir + '102120001912'
+# log_dir = interm_dir + '102120113608'
+
+log_dir = interm_dir + '102120132636' # not as good as below
+# log_dir = interm_dir + '102120132627' 
+log_dir = interm_dir + '102120190603'
+# log_dir = interm_dir + '102120190535'
+
+
+# extra reward
+log_dir = interm_dir + '102120195034'
+log_dir = interm_dir + '102120195053'
+log_dir = interm_dir + '102120195125'
+log_dir = interm_dir + '102120200051'
+
+log_dir = interm_dir + '102120211605'
+# log_dir = interm_dir + '102120212308'
+# log_dir = interm_dir + '102120220323' # better than below?
+# log_dir = interm_dir + '102120232656'
+
+log_dir =  '102220165821'
+# log_dir = '102220175630'
+# log_dir = '102220175513'
+# log_dir = '102220170059'
+# log_dir = '102220165832' # inc
+
+log_dir = '102220165750' # inc
+# log_dir = '102220165801' # inc
+# log_dir = '102220161013' # inc
+# log_dir = '102220160955' # inc
+# log_dir = '102220150855' # inc
+# log_dir = '102220142047' # meh, worse?
+# log_dir = '102220141250' # up then down
+# log_dir = '102220131555' # meh up then down
+# log_dir = '102220130552' 
+# log_dir = '102220122651' # inc, pretty good!!
+# log_dir = '102220105147'
+# log_dir = '102120232656' # going up
+
+log_dir = '102220204922'
+# log_dir = '102220201842'
+
+log_dir = '102120232656'
+log_dir = '102220105147'
+# to test
+log_dir = '102220122651' # meh, rotates
+#log_dir = '102220131555' # bad 
+# log_dir = '102220141250' # bad
+# log_dir = '102220142047' # bad
+# log_dir = '102220150855' # bad
+# log_dir = '102220160955' # good curve, decent execution, rolls
+log_dir = '102220161013' # good curve, inc
+log_dir = '102220165801' # bad
+# log_dir = '102220165750' #meh
+# log_dir = '102220165821' # bad
+# log_dir = '102220165832'
+# log_dir = '102220170059'
+# log_dir = '102220175513'
+# log_dir = '102220175630'
+# log_dir = '102220201842'
+# log_dir = '102220204922'
+# log_dir = '102220220826'
+# log_dir = '102220221010'
+# log_dir = '102220221047'
+# log_dir = '102220221404'
+# log_dir = '102220221809'
+# log_dir = '102220221844'
+#plot_all_log_dirs_after(interm_dir, log_dir)
+
+# full traj
+log_dir = '10230150624'
+log_dir = '102320190816'
+
+log_dir = '102320144624'
+
+# log_dir = '102320115606'
+# full
+# log_dir = '102320150545' #PPO full
+# log_dir = '102320190954'
+
+# normal ( these are w choosing Cartesian W/O!!!!!! joint contribution )
+# log_dir = '102420000605' # low gains, tracks pretty well even so
+# log_dir = '102420000620' # higher "may" be better - not conclusive
+#
+# log_dir = '102420000605' # good, inc, which gains?
+# log_dir = '102420000620' # good, incr, which gains?
+# log_dir = '102420000648' # terrain, not rly doing well?
+# log_dir = '102420000705' # terrain, not rly doing well? 
+# SAC
+# log_dir = '102420000740'
+# log_dir = '102420000753'
+
+# log_dir = '102420000813'
+# log_dir = '102420001105'
+"""
+good:
+102220161013
+102220160955
+
+"""
+
+log_dir = '102420125329'
+# log_dir = '102420125319'
+
+log_dir = '102420130027'
+# log_dir = '102420130044'
+
+log_dir = '102420000605' # low gains, tracks pretty well even so
+log_dir = '102420000620' # higher "may" be better - not conclusive
+
+################################################################## most recent reboot
+log_dir = '102420221847'
+log_dir = '102420221918'
+log_dir = '102420221858'
+log_dir = '102420221908'
+
+# SAC, full traj
+log_dir = ''
+log_dir = '102420223827' # this is the really good one full traj ~90 reward
+
+# log_dir = '102520122637'
+# 102420223827
+
+# lower noise in xz plane
+#log_dir = '102620124750' # full traj
+# log_dir = '102620124902' # normal
+
+# log_dir = '102520122637'
+# log_dir = '102620124750'
+
+log_dir = '102520005419' # FULL TRAJ FRONT/REAR BLOCKS!!!! low gain
+log_dir = '102520005405' # high gain
+
+# log_dir = '102620124750'
+# log_dir = '102620124902'
+
+# log_dir = '102620124750'
+# # log_dir = '102620124902'
+# log_dir = '102420223654' # Full 16 
+
+# log_dir = '102420223816' # same as 5419, but on flat terrain
+
+# log_dir = '102420221918'
+
+############################################################## night run
+log_dir = '102720013339' # inc
+log_dir = '102720013353' # inc, but not as well? 
+log_dir = '102720013417' # inc [full]
+log_dir = '102720013449' # inc slowly [full]
+log_dir = '102720013709' # inc, gppd curve?
+log_dir = '102720013717' # inc, 
+log_dir = '102720013736' # [full] 61, inc
+log_dir = '102720013727' # full, 55
+
+log_dir = '102720033416' # ?
+log_dir = '102720033625' # seems converged to 366?
+log_dir = '102720033635' # ?
+
+# these two are w + w/o body mass noise, and LOWER gains - 100,2
+log_dir = '102720111206'
+# log_dir = '102720111224'
+
+log_dir = '102420223654' # full 16
+log_dir = '102420223816' # full 8, lower gain, not quite as good as high for flat?
+log_dir = '102420223827' # this is the really good one full traj ~90 reward
+"""
+102420223827 ~ 90
+"""
+log_dir = '102520005405'
+
+# PPO test
+log_dir = '102420000705'
+
+log_dir = '102620220214' # transfer
+log_dir = '102620124750'
+
+# 102720111206
+log_dir = '102720111206'
+# log_dir = '102520005419'
+
+# log_dir = '102820010430'
+# log_dir = '102420223827'
+
+# rough up to 0.025
+log_dir = '102620170125'
+# log_dir = '102620220214'
+log_dir = '102620220214'
+log_dir = '102520122637'
+
+log_dir = '102520005405' # high gain, .05 heights, very good 87+
+log_dir = '102520005419' # same as above, but low gain, also very good
+# log_dir = '102520005454' # related to two above, check
+
+# these 3 are all good, 80+ reward
+log_dir = '102520122637' # flat terrain, 16
+# log_dir = '102620170125' # .025 height, high gains, same as above?
+# log_dir = '102620220214' # .025 height, high gains
+
+# these 3 - flat (but look fantastic!)
+log_dir = '102620124750' #
+log_dir = '102420223827' # over 90 reward!
+# log_dir = '102420223654' # (16, higher offsets)
+log_dir = '102420223719' # this one is jerkier than the above 3 (b/c 16 offsets, and lower gains)
+log_dir = '102420223816' # flat, lower gain
+
+
+####################### Video candidates (.05m noise, good)
+"""
+log_dir = '102520005419' 
+
+"""
+# slightly worse performance as increase noise - makes sense 
+# rough terrain (regarding obs spaces - conclusion is they are pretty much the same - maybe 2 is even slightly worse)
+log_dir = '102920002716' # low gain, .025 (obs space extended 2), 86 reward
+log_dir = '102920002729' # high , .025 (obs space extended 2), at 92 reward!
+log_dir = '102920002820' # low gain, .025 (obs space extended)
+log_dir = '102920002836' # high gain, .025 (obs space extended)
+log_dir = '102920003004' # low gain, .05 (obs space extended 2)
+log_dir = '102920003024' # high gain, .05 (obs space extended 2)
+log_dir = '102920003205' # low gain, .1
+
+
+"""
+no noise low
+103020175725
+103020175728
+
+no noise high
+103020175738
+103020175742
+
+"""
+
+log_dir = '102520005419' 
+
+# with .1
+log_dir = '103020152802' # THIS WAS FOR PAPER
+
+# log_dir = '102420223827' # over 90 reward!
+
+
+# these are test to see what is even running right now (11/1)
+
+# these are all getting 85+ reward , on .025-0.05 noise (check for high/low), smooth, great
+# log_dir = '102820010430' # .025-.05 noise
+# log_dir = '102820010521' # .025-.05 noise
+# log_dir = '102720111206' 
+# log_dir = '102720111224'
+# log_dir = '102820045703'
+# log_dir = '102820050120'
+# log_dir = '102820115339'
+# log_dir = '102820120007'
+# log_dir = '102920194131' # incompatible
+# log_dir = '102920194149' # incompatible env
+
+
+"""
+# LOOK INTO THIS ONE@
+log_dir = '103020152700' # higher noise - 0.1, works! 80 reward!
+"""
+
+############################################################################################## Jan 2021
+log_dir = '011221191104'
+log_dir = '011221222640' # with lower (varying) coefficient of friction 
+log_dir = '030121183012'
+log_dir = '030421231946'

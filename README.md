@@ -1,2 +1,30 @@
-# Reinforcement-Learning-for-Quadruped-Robots-Jumps
-For Jumping
+# Learning
+This is the master branch for learning-related activities for quadrupeds.
+
+## Installation
+
+Recommend using a virtualenv with python3.6 (tested). Recent pybullet, numpy, and tensorflow==1.14.0, stable-baselines, rllib, etc. 
+Then, install usc_learning as a package:
+
+`pip install -e . `
+
+After sourcing ROS path, you can also run examples in [ROS](./usc_learning/ros_interface).
+
+## Code structure
+
+- [learning](./usc_learning/learning) for rllib and stable-baselines extensions and modifications
+- [imitation_tasks](./usc_learning/imitation_tasks) for any trajectories from the optimization, and classes to compare current robot state with desired ones, etc.
+- [envs](./usc_learning/envs) any robot classes and basic gym environments. See in particular [quadruped_master](./usc_learning/envs/quadruped_master) for a general interface for aliengo and laikago.
+- [ROS](./usc_learning/ros_interface) call MPC in ROS for use in pybullet
+
+## TODO
+
+- Benchmark different action spaces (TORQUE, PD, IK, FORCE, etc.) with several algorithms (PPO,TD3,SAC,..) 
+- write a general run.py for an easy interface to reinforcement learning and/or imitation learning tasks, including hyperparameter recording etc.
+- runners to choose between MPC actions and RL 
+- supervised learning interface (can be from stable-baselines possibly)
+- add `requirements.txt` for installation for new users
+
+## Resources
+- [Google-motion-imitation](https://github.com/google-research/motion_imitation) based on [this paper](https://xbpeng.github.io/projects/Robotic_Imitation/2020_Robotic_Imitation.pdf) can be a helpful resource. 
+- [Imitation task specifically](https://github.com/google-research/motion_imitation/blob/master/motion_imitation/envs/env_wrappers/imitation_task.py)
