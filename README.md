@@ -23,7 +23,6 @@ After sourcing ROS path, you can also run examples in [ROS](./usc_learning/ros_i
 - write a general run.py for an easy interface to reinforcement learning and/or imitation learning tasks, including hyperparameter recording etc.
 - runners to choose between MPC actions and RL 
 - supervised learning interface (can be from stable-baselines possibly)
-- add `requirements.txt` for installation for new users
 
 ## Resources
 - [Google-motion-imitation](https://github.com/google-research/motion_imitation) based on [this paper](https://xbpeng.github.io/projects/Robotic_Imitation/2020_Robotic_Imitation.pdf) can be a helpful resource. 
