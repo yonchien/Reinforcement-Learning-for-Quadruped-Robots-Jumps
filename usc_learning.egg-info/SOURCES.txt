@@ -56,7 +56,9 @@ usc_learning/envs/rex/turn_env.py
 usc_learning/envs/rex/walk_env.py
 usc_learning/envs/rex/pyb_data/__init__.py
 usc_learning/imitation_tasks/__init__.py
+usc_learning/imitation_tasks/chuong.py
 usc_learning/imitation_tasks/imitation_gym_env.py
+usc_learning/imitation_tasks/imitation_gym_env_lstm.py
 usc_learning/imitation_tasks/imitation_task.py
 usc_learning/imitation_tasks/load_il.py
 usc_learning/imitation_tasks/load_il_rllib.py
@@ -66,6 +68,8 @@ usc_learning/imitation_tasks/run_il.py
 usc_learning/imitation_tasks/run_il_rllib.py
 usc_learning/imitation_tasks/sim_opt_traj.py
 usc_learning/imitation_tasks/sim_opt_traj_v2.py
+usc_learning/imitation_tasks/train.py
+usc_learning/imitation_tasks/train_LSTM.py
 usc_learning/imitation_tasks/traj_motion_data.py
 usc_learning/learning/__init__.py
 usc_learning/learning/dummy.py
@@ -90,6 +94,12 @@ usc_learning/learning/rllib/run_rllib.py
 usc_learning/learning/rllib/test_plotting.py
 usc_learning/learning/rllib/rllib_helpers/__init__.py
 usc_learning/learning/rllib/rllib_helpers/fcnet_me.py
+usc_learning/learning/rllib/rllib_helpers/loco_net_tf_lstm.py
+usc_learning/learning/rllib/rllib_helpers/loco_net_tf_trans_encoder.py
+usc_learning/learning/rllib/rllib_helpers/loco_net_tf_transformer.py
+usc_learning/learning/rllib/rllib_helpers/loco_net_torch_lstm.py
+usc_learning/learning/rllib/rllib_helpers/partial_filter.py
+usc_learning/learning/rllib/rllib_helpers/transformer_layers.py
 usc_learning/tests/__init__.py
 usc_learning/tests/test_aliengo.py
 usc_learning/tests/test_impedance_control.py

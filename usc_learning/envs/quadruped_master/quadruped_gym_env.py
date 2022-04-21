@@ -175,7 +175,7 @@ class QuadrupedGymEnv(gym.Env):
       shake_weight=0,#1e-4,
       drift_weight=0,#1e-4,
       distance_limit=float("inf"),
-      observation_noise_stdev=0.0,
+      observation_noise_stdev=0.01,
       self_collision_enabled=True,
       motor_velocity_limit=np.inf,
       pd_control_enabled=False,  #not needed to be true if accurate motor model is enabled (has its own better PD)

@@ -1,4 +1,4 @@
-# Use SAC for LSTM
+# Use PPO for LSTM
 
 import os
 from datetime import datetime
@@ -13,7 +13,7 @@ from ray.rllib.agents import ppo, sac, ddpg, ars, es
 # from ray.rllib.agents.ppo import PPOTrainer
 # quadruped env
 # from usc_learning.envs.quadruped_master.quadruped_gym_env import QuadrupedGymEnv
-from usc_learning.imitation_tasks.imitation_gym_env import ImitationGymEnv
+from usc_learning.imitation_tasks.imitation_gym_env_lstm import ImitationGymEnv
 # from usc_learning.envs.car.rcCarFlagRunGymEnv import RcCarFlagRunGymEnv
 # stable baselines vec env
 # from stable_baselines.common.cmd_util import make_vec_env
@@ -79,13 +79,13 @@ class DummyQuadrupedEnv(gym.Env):
         #     write_env_config(save_path,env)
         # else:
         self.env = ImitationGymEnv(observation_space_mode="MOTION_IMITATION_EXTENDED2_CONTACTS_HISTORY")
-        write_env_config(save_path,self.env)
+        write_env_config(save_path, self.env)
         self.action_space = self.env.action_space
         self.observation_space = self.env.observation_space
 
-        print('\n','*'*80)
-        print('obs high',self.observation_space.high)
-        print('obs low', self.observation_space.low)
+        print('\n', '*'*80)
+        print('obs high', self.observation_space.high)
+        print('obs low',  self.observation_space.low)
 
     def reset(self):
         """reset env """
@@ -128,9 +128,6 @@ class DummyQuadrupedEnv(gym.Env):
 
 
 ray.init()
-
-
-
 ModelCatalog.register_custom_action_dist("SquashedGaussian", SquashedGaussian)
 
 ModelCatalog.register_custom_model("my_model", LocomotionNetTF)
@@ -139,7 +136,7 @@ ModelCatalog.register_custom_model("my_model", LocomotionNetTF)
 
 # model = {"fcnet_hiddens": [512, 512], "fcnet_activation": "tanh"}
 model = {"custom_model": "my_model", "fcnet_activation": "tanh", "vf_share_layers": True,
-         "custom_model_config": {"cam_seq_len": 10, "sensor_seq_len": 2, "action_seq_len": 1, "cam_dim": (36, 36),
+         "custom_model_config": {"cam_seq_len": 10, "sensor_seq_len": 10, "action_seq_len": 1, "cam_dim": (36, 36),
                                  "is_training": True}}
 # test to see if we get same thing as in stable baselines
 NUM_CPUS = 10
@@ -207,7 +204,7 @@ if ALG == "PPO":
                   # "callbacks": {
                   #     "on_train_result": on_train_result,
                   # },
-                  "framework": "tf",
+                  "framework": "tf2",
                   "eager_tracing": True,
                   # "gamma": 0.95,
                   }

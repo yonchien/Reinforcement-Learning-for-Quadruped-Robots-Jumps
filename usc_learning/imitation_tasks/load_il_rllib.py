@@ -77,7 +77,7 @@ log_dir = '030621120359'
 log_dir = '030621120650'
 log_dir ='030821121850' # started later
 
-log_dir ='041422162759' # chuong test
+log_dir ='042022231120' # chuong test
 ################################################################################################
 ### Script - shouldn't need to change anything below unless trying to load a specific checkpoint
 #################################################################################################

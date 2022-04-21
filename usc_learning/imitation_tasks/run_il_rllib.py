@@ -11,7 +11,7 @@ from ray.tune.registry import register_env
 from ray.rllib.agents.ppo import PPOTrainer
 # quadruped env
 # from usc_learning.envs.quadruped_master.quadruped_gym_env import QuadrupedGymEnv
-from usc_learning.imitation_tasks.imitation_gym_env import ImitationGymEnv
+from usc_learning.imitation_tasks.imitation_gym_env_lstm import ImitationGymEnv
 from usc_learning.envs.car.rcCarFlagRunGymEnv import RcCarFlagRunGymEnv
 # stable baselines vec env
 from stable_baselines.common.cmd_util import make_vec_env
@@ -118,7 +118,7 @@ class DummyQuadrupedEnv(gym.Env):
         else:
             obs, rew, done, info = self.env.step(action)
 
-        print("OBS_SIZE:", obs.shape)
+        # print("OBS_SIZE:", obs.shape)
         #print('step obs, rew, done, info', obs, rew, done, info)
         # NOTE: it seems pybullet torque control IGNORES joint velocity limits..
         obs = np.clip(obs, self.observation_space.low, self.observation_space.high)
@@ -214,7 +214,7 @@ if ALG == "SAC":
                     local_dir=SAVE_RESULTS_PATH,
                     checkpoint_freq=checkpoint_freq,
                     verbose=2,
-                    stop= {"timesteps_total": 3} # 10000000
+                    stop= {"timesteps_total": 10} # 10000000
                     )
     ray.shutdown()
     #sys.exit()
