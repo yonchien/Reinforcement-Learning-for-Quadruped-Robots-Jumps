@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b73b9462-0032-4dfe-833c-98ad60c04350" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/run_rllib.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/test_LSTM.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/train_LSTM_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usc_learning/learning/rllib/rllib_helpers/tf_lstm_net.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped_gym_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped_gym_env.py" afterDir="false" />
