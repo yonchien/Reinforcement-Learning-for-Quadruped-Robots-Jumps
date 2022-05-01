@@ -1,4 +1,4 @@
-# MLP
+# Correct Implementation for LSTM, updated from Zhuochen
 
 #!/usr/bin/env python
 """Load rllib. Pretty hacky. """
@@ -41,8 +41,11 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 from usc_learning.utils.file_utils import get_latest_model_rllib, get_latest_directory, read_env_config
 
 from ray.rllib.models import ModelCatalog
-from usc_learning.learning.rllib.rllib_helpers.fcnet_me import MyFullyConnectedNetwork
-ModelCatalog.register_custom_model("my_fcnet", MyFullyConnectedNetwork)
+
+# from usc_learning.learning.rllib.rllib_helpers.loco_net_tf_lstm import LocomotionNetTF
+from usc_learning.learning.rllib.rllib_helpers.tf_lstm_net import LSTMModel
+
+ModelCatalog.register_custom_model("my_fcnet", LSTMModel)
 ################################### Notes
 
 # TODO: add option to load different trained algs, this assumes PPO only so far
@@ -74,16 +77,22 @@ log_dir = '030521023907' # 0.05, 0.7  not good transfer
 log_dir = '030521183527' # with noise
 
 # post submission, verify ranges 
-log_dir= '030621120331' # jump and roll 
+log_dir = '030621120331' # jump and roll
 log_dir = '030621120359'
 log_dir = '030621120650'
 log_dir ='030821121850' # started later
 
-# CHUONG TRIED
-log_dir ='042122173936' # chuong- LSTM-PPO
-log_dir ='042622140629' # chuong -MLP-PPO, "fcnet_hiddens": [200, 100]
-# log_dir ='042922102335' # some steps
-log_dir ='042922103532' # change action repeat to 30, 2 million training steps
+
+# CHUONG - TEST
+log_dir ='042122173936' # chuong- LSTM-PPO, 10 history states, with observation noise
+# log_dir ='042222171848' # chuong- LSTM-PPO, 30 history states, with observation noise
+log_dir ='042222235549' # chuong- LSTM-PPO, 30 history states, no observation noise
+log_dir ='042722223958' # correct implementation
+log_dir ='042822121912' # correct implementation
+
+
+
+
 ################################################################################################
 ### Script - shouldn't need to change anything below unless trying to load a specific checkpoint
 #################################################################################################
@@ -113,7 +122,7 @@ except:
     pass
 stats_path = str(log_dir)
 print('stats_path', stats_path)
-vec_stats_path = os.path.join(stats_path,"vec_normalize.pkl")
+vec_stats_path = os.path.join(stats_path, "vec_normalize.pkl")
 
 
 # get env config if available
@@ -121,7 +130,7 @@ try:
     # stats path has all saved files (quadruped, configs_a1, as well as vec params)
     env_config = read_env_config(stats_path)
     #sys.path.append(stats_path)
-    sys.path.insert(0,stats_path)
+    sys.path.insert(0, stats_path)
 
     from imitation_gym_env_lstm import ImitationGymEnv
     # from quadruped import Quadruped
@@ -131,7 +140,7 @@ try:
     # check env_configs.txt file to see whether to load aliengo or a1
     with open(stats_path + '/env_configs.txt') as configs_txt:
         tmp = configs_txt.read()
-        print('configs txt',tmp)
+        print('configs txt', tmp)
         print('testing:', 'laikago' in tmp)
         #sys.exit()
         if 'aliengo' in configs_txt.read():
@@ -146,7 +155,7 @@ try:
 
     env_config['robot_config'] = robot_config
 except:
-    print('*'*50,'could not load env stats','*'*50)
+    print('*'*50, 'could not load env stats', '*'*50)
     env_config = {}
     sys.exit()
 if not USE_ROS:
@@ -171,12 +180,14 @@ print("kd joint", robot_config.MOTOR_KD)
 class DummyQuadrupedEnv(gym.Env):
     """ Dummy class to work with rllib. """
     def __init__(self, dummy_env_config):
-        self.env = ImitationGymEnv(**env_config)
+        # self.env = ImitationGymEnv(**env_config)
+        self.env = ImitationGymEnv(observation_space_mode="MOTION_IMITATION_EXTENDED2_CONTACTS", render=True)
+
         #write_env_config(save_path,self.env)
         self.action_space = self.env.action_space
         self.observation_space = self.env.observation_space
-        print('\n','*'*80)
-        print('obs high',self.observation_space.high)
+        print('\n', '*'*80)
+        print('obs high', self.observation_space.high)
         print('obs low', self.observation_space.low)
 
     def reset(self):
@@ -224,13 +235,22 @@ class DummyQuadrupedEnv(gym.Env):
 register_env("quadruped_env",  lambda _: DummyQuadrupedEnv(_))
 register_env("quadruped_gym_env",  lambda _: DummyQuadrupedEnv(_))
 
+ModelCatalog.register_custom_model("my_model", LSTMModel)
+
 # load training configurations (can be seen in params.json)
 config_path = os.path.join(train_dir, "params.pkl")
 
 with open(config_path, "rb") as f:
     config = pickle.load(f)
 
-config["num_workers"] = 0
+NUM_CPUS = 1
+# num_samples_each_worker = int(600/ NUM_CPUS)
+
+config["num_workers"] = NUM_CPUS
+
+config["model"] = {"custom_model": "my_model", "fcnet_activation": "tanh", "vf_share_layers": True,  "lstm_cell_size": 128,
+         "custom_model_config": {"cam_seq_len": 10, "sensor_seq_len": 30, "action_seq_len": 1, "cam_dim": (36, 36),
+                                 "is_training": True}}
 # ray.init()#memory=1024)
 # ray.init(memory=52428800, object_store_memory=78643200)
 
@@ -258,7 +278,7 @@ agent.restore(checkpoint)
 
 env = agent.workers.local_worker().env
 print(env)
-print('agent',agent)
+print('agent', agent)
 
 # import pdb
 # pdb.set_trace()
@@ -269,7 +289,7 @@ write_out_path_root = '/home/guillaume/catkin_ws/src/USC-AlienGo-Software/laikag
 # env.envs[0].env._traj_task.writeoutTraj(write_out_path)
 write_out_path = write_out_path_root + 'model_imitation/'
 
-TEST_STEPS = 10
+TEST_STEPS = 100
 # USE_ROS = False
 if USE_ROS:
     from ray.tune.trial import ExportFormat
@@ -298,7 +318,7 @@ if USE_ROS:
         # quadruped_env = env.env.env.env
 
 
-        np.savetxt(write_out_path + 'vecnorm_params.csv',vecnorm_arr,delimiter=',')
+        np.savetxt(write_out_path + 'vecnorm_params.csv', vecnorm_arr,delimiter=',')
     except:
         print('Not using meanstdfilter in training, so didnt save')
     ray.shutdown()

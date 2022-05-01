@@ -1160,7 +1160,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
     if self._enable_action_filter:
       curr_act = self._action_filter(curr_act)
     #print(self._action_repeat, self._sim_step_counter, self._time_step)
-    for _ in range(self._action_repeat): # 100
+    for _ in range(self._action_repeat): # 10
 
       # if self._enable_action_filter:
       #   curr_act = self._action_filter(curr_act)

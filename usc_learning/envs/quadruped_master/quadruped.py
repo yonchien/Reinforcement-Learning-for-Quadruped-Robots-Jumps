@@ -93,7 +93,7 @@ class Quadruped(object):
     else:
       raise ValueError('motor control mode unclear')
 
-    self._sensory_hist_len = 10
+    self._sensory_hist_len = 1
     self._sensor_records = None
     # self._sensor_records = [np.zeros(73)] * self._sensory_hist_len  # WE USE IT
     #self._motor_control_mode = motor_control_mode

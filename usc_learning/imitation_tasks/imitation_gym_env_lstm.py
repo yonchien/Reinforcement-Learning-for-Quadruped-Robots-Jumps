@@ -4,6 +4,7 @@ traj_motion_data.py for reading in the trajectory and its interface
 sim_opt_traj_v2.py is an example of just running the trajectory
 """
 
+" Chuong is modifying it for lstm jump, Date: 04/22/2022"
 import os, inspect
 #currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 #parentdir = os.path.dirname(os.path.dirname(currentdir))
@@ -207,7 +208,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
       sensors=None,
       set_kp_gains="LOW", # either LOW / HIGH
       motor_control_mode="TORQUE",
-      task_env=None, # RL "action" is entire trajectory as 1 pass through NN
+      task_env= None, # RL "action" is entire trajectory as 1 pass through NN
       task_env_num=8, # how many time sections to learn offsets for pre_jump (so 0.8 / x)
       task_mode="IL_ADD_CARTESIAN_P_JOINT_PREJUMP_ONLY",
       observation_space_mode="MOTION_IMITATION_EXTENDED2_CONTACTS",
@@ -261,7 +262,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
       env_randomizer: TO ADD. An EnvRandomizer to randomize the physical properties
         during reset().
     """
-    self._sensory_hist_len = 10
+    self._sensory_hist_len = 1
     self._robot_states =[]
     def get_opt_trajs(path):
       """ Returns all optimal trajectories in directory. """
@@ -278,7 +279,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
       self.opt_traj_filenames = get_opt_trajs(opt_trajs_path)
       self.num_opt_trajs = len(self.opt_traj_filenames)
       self.curr_opt_traj = 0
-      self._traj_task = TrajTaskMotionData(filename=self.opt_traj_filenames[self.curr_opt_traj % self.num_opt_trajs],dt=0.001,useCartesianData=useTrajCartesianData)
+      self._traj_task = TrajTaskMotionData(filename=self.opt_traj_filenames[self.curr_opt_traj % self.num_opt_trajs], dt=0.001, useCartesianData=useTrajCartesianData)
       # iterate through each trajectory to get max/min observations
       traj_task_max_range = np.amax(self._traj_task.full_state, axis=1)
       traj_task_min_range = np.amin(self._traj_task.full_state, axis=1)
@@ -561,8 +562,8 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
         # self.curr_opt_traj += 1
         # if self.curr_opt_traj >= self.num_opt_trajs:
         #   self.curr_opt_traj = 0
-        self.curr_opt_traj = np.random.randint(0,self.num_opt_trajs)
-        self._traj_task = TrajTaskMotionData(filename=self.opt_traj_filenames[self.curr_opt_traj],dt=0.001,useCartesianData=self._useTrajCartesianData)
+        self.curr_opt_traj = np.random.randint(0, self.num_opt_trajs)
+        self._traj_task = TrajTaskMotionData(filename=self.opt_traj_filenames[self.curr_opt_traj], dt=0.001, useCartesianData=self._useTrajCartesianData)
         # add box according to height, distance
         #_CHASSIS_NAME_PATTERN = re.compile(r"\w*floating_base\w*")
         curr_traj_name = os.path.basename(self.opt_traj_filenames[self.curr_opt_traj])
@@ -1061,7 +1062,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
     return action
 
   
-  def step_full_traj(self,action):
+  def step_full_traj(self, action):
     """ Step for full traj in action space. """
 
     # reshape action into number of offsets to use
@@ -1071,8 +1072,8 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
 
     for i in range(self._task_env_num):
 
-      for _ in range(self._action_repeat): # check line 280
-        proc_action = self._transform_action_to_motor_command(reshaped_action[:,i])
+      for _ in range(self._action_repeat): # it is 100, check line 323
+        proc_action = self._transform_action_to_motor_command(reshaped_action[:, i])
 
         self._robot.ApplyAction(proc_action)
         self._pybullet_client.stepSimulation()
@@ -1151,12 +1152,15 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
 
     if self._is_render:
       self._render_step_helper()
-    
+    # print("action repeat:", self._action_repeat)
     """
     TODO: should the action be additive to whatever we found with PD control?
     # action should be based on where we want to be at next time step?
     """
     curr_act = action.copy()
+    # print("curr_act:", curr_act)
+
+    # print("action size:", curr_act.shape)
     if self._enable_action_filter:
       curr_act = self._action_filter(curr_act)
     perturbation = np.zeros(3)
@@ -1164,8 +1168,9 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
     self._dt_motor_torques = []
     self._dt_motor_velocities = []
 
-    print("action_repeat every (s):", self._action_repeat*0.001)
-    for _ in range(self._action_repeat): # 10
+    # print("action repeat", self._action_repeat)
+    # print("action_repeat every (s):", self._action_repeat*0.001)
+    for _ in range (30): # 10
       # only scale action if it's a gym interface
       self._robot.ApplyExternalForce(perturbation)
       #print('-----------------curr_act in loop', curr_act)
@@ -1248,6 +1253,8 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
     if done and self._is_render:
       time.sleep(0.5)
       self._render_step_helper()
+
+    print("reward:", reward)
     return np.array(self._noisy_observation()), reward, done, {}
 
   ######################################################################################
@@ -1283,8 +1290,8 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
 
     print('final reward', reward)
 
-    print('traj ', np.array(traj_base_pos),traj_base_orn)
-    print('curr', np.array(curr_base_pos),curr_base_orn)
+    print('traj ', np.array(traj_base_pos), traj_base_orn)
+    print('curr', np.array(curr_base_pos), curr_base_orn)
     # print('-'*30)
     # print('RPY ', np.array(self._robot.GetBaseOrientationRollPitchYaw()))
     # print('quat', np.array(self._robot.GetBaseOrientation()))
@@ -1412,7 +1419,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
       self._robot_state = self._robot.GetExtendedObservation2()
       print("robot_state1:", len(self._robot_state)) # 73
       # print(type(robot_state)) # list type
-    elif self._observation_space_mode == "MOTION_IMITATION_EXTENDED2_CONTACTS_HISTORY":
+    elif self._observation_space_mode == "MOTION_IMITATION_EXTENDED2_CONTACTS_HISTORY": # We don't use it
       self._robot_state = self._robot.GetExtendedObservation2_History() # CHUONG, get history
       self._add_obs_noise = (np.random.normal(scale=self._observation_noise_stdev, size=self._robot_state.shape) *
                              self._robot.GetExtendedObservation2UpperBound_History())  # NEED TO FIXED DIMENSION - CHUONG
@@ -1435,7 +1442,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
       _, _, _, feetInContactBool = self._robot.GetContactInfo()
       # print("feetInContactBool_type", feetInContactBool.type)
 
-      self._observation = np.hstack((self._observation, feetInContactBool*self._sensory_hist_len))
+      self._observation = np.hstack((self._observation, feetInContactBool*self._sensory_hist_len)) # we currently set it as hist_len=1, so it does not affect the result.
     #   print('in get observation ', self._observation.shape)
     # print('self obs mode', self._observation_space_mode)
     # print('in get observation  but didnt get called', self._observation.shape)
@@ -1446,26 +1453,26 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
   def _noisy_observation(self):
     self._get_observation()
     observation = np.array(self._observation)
-    self._add_obs_noise = np.append(self._add_obs_noise, np.array([0, 0, 0, 0]*self._sensory_hist_len))  # Add noise only to robot state
-    # print("add_obs_noise:", self._add_obs_noise.shape)
-    if self._observation_noise_stdev > 0:
-      observation += self._add_obs_noise
-      # observation += (
-      #     np.random.normal(scale=self._observation_noise_stdev, size=observation.shape) *
-      #     self._robot.GetObservationUpperBound())
-
-    if self._normalize_obs: # also check its initialized
-      # TODO
-      state = observation.copy()
-      contacts = state[-4:]
-      try:
-        self.normalizer.observe(state)
-        observation = self.normalizer.normalize(state)
-      except:
-        print('add normalizer')
-        self.normalizer = Normalizer(len(observation))
-      # undo contacts normalization
-      #observation[-4:] = contacts
+    # self._add_obs_noise = np.append(self._add_obs_noise, np.array([0, 0, 0, 0]*self._sensory_hist_len))  # Add noise only to robot state
+    # # print("add_obs_noise:", self._add_obs_noise.shape)
+    # if self._observation_noise_stdev > 0:
+    #   observation += self._add_obs_noise
+    #   # observation += (
+    #   #     np.random.normal(scale=self._observation_noise_stdev, size=observation.shape) *
+    #   #     self._robot.GetObservationUpperBound())
+    #
+    # if self._normalize_obs: # also check its initialized
+    #   # TODO
+    #   state = observation.copy()
+    #   contacts = state[-4:]
+    #   try:
+    #     self.normalizer.observe(state)
+    #     observation = self.normalizer.normalize(state)
+    #   except:
+    #     print('add normalizer')
+    #     self.normalizer = Normalizer(len(observation))
+    #   # undo contacts normalization
+    #   #observation[-4:] = contacts
     return observation
 
     ##############################################################################

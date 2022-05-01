@@ -169,13 +169,13 @@ class QuadrupedGymEnv(gym.Env):
       robot_config=robot_config,
       isRLGymInterface=True, # True means running RL, should be false if running tests
       time_step=0.001,
-      action_repeat=10, # 50 seems to be working, couldn't verify though 
+      action_repeat=20, # 50 seems to be working, couldn't verify though
       distance_weight=2.0,
       energy_weight=0.008,#05,#0.005,#0.005, # orig 0.1
       shake_weight=0,#1e-4,
       drift_weight=0,#1e-4,
       distance_limit=float("inf"),
-      observation_noise_stdev=0.01,
+      observation_noise_stdev=0,
       self_collision_enabled=True,
       motor_velocity_limit=np.inf,
       pd_control_enabled=False,  #not needed to be true if accurate motor model is enabled (has its own better PD)

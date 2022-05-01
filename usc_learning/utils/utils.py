@@ -6,7 +6,7 @@ from glob import glob
 import pandas
 import json
 
-from stable_baselines.bench.monitor import load_results
+from stable_baselines3.common.monitor import load_results
 # matplotlib.use('TkAgg')  # Can change to 'Agg' for non-interactive mode
 plt.rcParams['svg.fonttype'] = 'none'
 

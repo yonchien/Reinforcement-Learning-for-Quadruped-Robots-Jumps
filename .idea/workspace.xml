@@ -5,23 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b73b9462-0032-4dfe-833c-98ad60c04350" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/imitation_gym_env_lstm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Reinforcement-Learning-for-Quadruped-Robots-jump1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Reinforcement-Learning-for-Quadruped-Robots-jump1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/run_rllib.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/test_LSTM.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/train_LSTM_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/usc_learning/learning/rllib/rllib_helpers/tf_lstm_net.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usc_learning.egg-info/SOURCES.txt" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning.egg-info/SOURCES.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped_gym_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped_gym_env.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/imitation_gym_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/imitation_gym_env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/imitation_gym_env_lstm.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/imitation_gym_env_lstm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/load_il_rllib.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/load_il_rllib.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/run_il_rllib.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/run_il_rllib.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/train_LSTM.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/train_LSTM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usc_learning/utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/utils/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -34,20 +42,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/ubuntu/Documents/Reinforcement-Learning-for-Quadruped-Robots-jump1",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/ubuntu/Documents/GitHub/Reinforcement-Learning-for-Quadruped-Robots-jump1/usc_learning/imitation_tasks&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/usc_learning/imitation_tasks" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.load_il_rllib">
+  <component name="RunManager" selected="Python.test_LSTM">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="Reinforcement-Learning-for-Quadruped-Robots-jump1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -111,6 +119,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_LSTM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Reinforcement-Learning-for-Quadruped-Robots-jump1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/usc_learning/imitation_tasks" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/usc_learning/imitation_tasks/test_LSTM.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="train_LSTM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Reinforcement-Learning-for-Quadruped-Robots-jump1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -132,16 +161,41 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="train_LSTM_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Reinforcement-Learning-for-Quadruped-Robots-jump1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/usc_learning/imitation_tasks" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/usc_learning/imitation_tasks/train_LSTM_2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Python.train_LSTM_2" />
+      <item itemvalue="Python.test_LSTM" />
       <item itemvalue="Python.load_il_rllib" />
       <item itemvalue="Python.run_il_rllib" />
       <item itemvalue="Python.train_LSTM" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_LSTM" />
         <item itemvalue="Python.load_il_rllib" />
-        <item itemvalue="Python.train_LSTM" />
         <item itemvalue="Python.run_il_rllib" />
+        <item itemvalue="Python.train_LSTM_2" />
+        <item itemvalue="Python.train_LSTM" />
       </list>
     </recent_temporary>
   </component>
@@ -166,5 +220,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/usc_learning/imitation_tasks/test_LSTM.py</url>
+          <line>242</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

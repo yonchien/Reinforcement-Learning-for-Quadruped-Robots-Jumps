@@ -1,3 +1,5 @@
+# MLP
+
 import os
 from datetime import datetime
 import numpy as np
@@ -14,8 +16,8 @@ from ray.rllib.agents.ppo import PPOTrainer
 from usc_learning.imitation_tasks.imitation_gym_env_lstm import ImitationGymEnv
 from usc_learning.envs.car.rcCarFlagRunGymEnv import RcCarFlagRunGymEnv
 # stable baselines vec env
-from stable_baselines.common.cmd_util import make_vec_env
-from stable_baselines.common.vec_env import DummyVecEnv, VecNormalize
+from stable_baselines3.common.cmd_util import make_vec_env
+from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 # utils
 from usc_learning.utils.file_utils import copy_files, write_env_config
 
@@ -37,7 +39,7 @@ monitor_dir = datetime.now().strftime("%m%d%y%H%M%S") + '/'
 
 ALG = "SAC"
 # ALG = "PPO"
-USE_IMITATION_ENV = True
+USE_IMITATION_ENV = False
 
 USE_LSTM = False
 
@@ -126,7 +128,7 @@ class DummyQuadrupedEnv(gym.Env):
             print(obs)
             #sys.exit()
 
-        print("OBS_SIZE:", obs.shape)
+        # print("OBS_SIZE:", obs.shape)
         return obs, rew, done, info
 
 
@@ -134,10 +136,31 @@ ray.init()
 
 from ray.rllib.models.tf.tf_action_dist import SquashedGaussian
 from ray.rllib.models import ModelCatalog
+
 ModelCatalog.register_custom_action_dist("SquashedGaussian", SquashedGaussian)
 
+
+
+# from ray.rllib.models.tf.fcnet import FullyConnectedNetwork
+# import usc_learning.learning.rllib.rllib_helpers.fcnet_me as fcnet_me
+
+
+if ALG=="PPO":
+    from usc_learning.learning.rllib.rllib_helpers.fcnet_me import MyFullyConnectedNetwork
+    ModelCatalog.register_custom_model("my_fcnet", MyFullyConnectedNetwork)
+
+
 # Neural Network parameters
-model = {"fcnet_hiddens": [512, 512], "fcnet_activation": "tanh"}
+# model = {"fcnet_hiddens": [512, 512], "fcnet_activation": "tanh"}
+model = {"fcnet_hiddens": [200, 100], "fcnet_activation": "tanh"}  # check free_log_std on/off "free_log_std": True,
+# model = {"fcnet_hiddens": [200, 100], "fcnet_activation": "tanh", "custom_action_dist": "SquashedGaussian" }
+# model = {"fcnet_hiddens": [512, 512], "fcnet_activation": "tanh", "free_log_std": True}
+# model = {"fcnet_hiddens": [512, 256], "fcnet_activation": "tanh"} #
+# model = {"fcnet_hiddens": [512, 512], "fcnet_activation": "tanh"} #
+
+if USE_IMITATION_ENV:
+    model = {"fcnet_hiddens": [512, 256], "fcnet_activation": "tanh"}
+
 
 # test to see if we get same thing as in stable baselines
 NUM_CPUS = 10
@@ -214,7 +237,7 @@ if ALG == "SAC":
                     local_dir=SAVE_RESULTS_PATH,
                     checkpoint_freq=checkpoint_freq,
                     verbose=2,
-                    stop= {"timesteps_total": 10} # 10000000
+                    stop= {"timesteps_total": 2000000} # 10000000
                     )
     ray.shutdown()
     #sys.exit()
@@ -267,7 +290,7 @@ if ALG == "PPO":
                   # "callbacks": {
                   #     "on_train_result": on_train_result,
                   # },
-                  "framework": "tf",
+                  "framework": "tf2",
                   "eager_tracing": True,
                   # "gamma": 0.95,
                   }
@@ -279,6 +302,6 @@ if ALG == "PPO":
              verbose=2,
              checkpoint_at_end=True,
              # stop=stopper,
-             stop={"timesteps_total": 2},
+             stop={"timesteps_total": 10000000},
              progress_reporter=reporter
              )
