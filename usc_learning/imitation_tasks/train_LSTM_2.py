@@ -78,7 +78,7 @@ class DummyQuadrupedEnv(gym.Env):
         #     # write env configs to reload (i.e if don't need to inspect whole code base)
         #     write_env_config(save_path,env)
         # else:
-        self.env = ImitationGymEnv(observation_space_mode="MOTION_IMITATION_EXTENDED2_CONTACTS")
+        self.env = ImitationGymEnv(observation_space_mode="MOTION_IMITATION_EXTENDED2_CONTACTS", task_env=None)
         write_env_config(save_path, self.env)
         self.action_space = self.env.action_space
         self.observation_space = self.env.observation_space
@@ -138,7 +138,7 @@ ModelCatalog.register_custom_model("my_model", LSTMModel)
 
 # model = {"fcnet_hiddens": [512, 512], "fcnet_activation": "tanh"}
 model = {"custom_model": "my_model", "fcnet_activation": "tanh", "vf_share_layers": True,  "lstm_cell_size": 128,
-         "custom_model_config": {"cam_seq_len": 10, "sensor_seq_len": 30, "action_seq_len": 1, "cam_dim": (36, 36),
+         "custom_model_config": {"cam_seq_len": 10, "sensor_seq_len": 8, "action_seq_len": 1, "cam_dim": (36, 36),
                                  "is_training": True}}
 # test to see if we get same thing as in stable baselines
 NUM_CPUS = 10
@@ -220,6 +220,6 @@ if ALG == "PPO":
              verbose=2,
              checkpoint_at_end=True,
              # stop=stopper,
-             stop={"timesteps_total": 1000000},
+             stop={"timesteps_total": 5000000},
              progress_reporter=reporter
              )

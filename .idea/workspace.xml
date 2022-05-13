@@ -6,14 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="b73b9462-0032-4dfe-833c-98ad60c04350" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped_gym_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/envs/quadruped_master/quadruped_gym_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/imitation_gym_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/imitation_gym_env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/exported_model/my_model/saved_model.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/exported_model/my_model/variables/variables.data-00000-of-00001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/exported_model/my_model/variables/variables.index" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/imitation_gym_env_lstm.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/imitation_gym_env_lstm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/load_il_rllib.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/load_il_rllib.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/run_il_rllib.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/run_il_rllib.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/train_LSTM.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/train_LSTM.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usc_learning/utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/utils/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/test_LSTM.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/test_LSTM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usc_learning/imitation_tasks/train_LSTM_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/usc_learning/imitation_tasks/train_LSTM_2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,9 +188,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.test_LSTM" />
+        <item itemvalue="Python.train_LSTM_2" />
         <item itemvalue="Python.load_il_rllib" />
         <item itemvalue="Python.run_il_rllib" />
-        <item itemvalue="Python.train_LSTM_2" />
         <item itemvalue="Python.train_LSTM" />
       </list>
     </recent_temporary>
@@ -222,7 +222,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/usc_learning/imitation_tasks/test_LSTM.py</url>
-          <line>242</line>
+          <line>243</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>

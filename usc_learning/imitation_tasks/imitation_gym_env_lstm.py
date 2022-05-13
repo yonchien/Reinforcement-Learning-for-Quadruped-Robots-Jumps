@@ -109,7 +109,7 @@ TASK_MODES = ["DEFAULT",
               "IL_ADD_Qdes_dQdes", 
               "IL_ADD_Qdes_PREJUMP_ONLY"]
 
-TASK_ENVS = ["FULL_TRAJ", # output full trajectory deltas
+TASK_ENVS = ["FULL_TRAJ", "PARTIAL_TRAJ" # output full trajectory deltas
             ]
 """
 Given the optimal trajectory tracking controller: 
@@ -208,11 +208,12 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
       sensors=None,
       set_kp_gains="LOW", # either LOW / HIGH
       motor_control_mode="TORQUE",
-      task_env= None, # RL "action" is entire trajectory as 1 pass through NN
-      task_env_num=8, # how many time sections to learn offsets for pre_jump (so 0.8 / x)
+      # task_env= "FULL_TRAJ", # RL "action" is entire trajectory as 1 pass through NN
+      task_env= None,  # RL "action" is entire trajectory as 1 pass through NN
+      task_env_num= 8, # how many time sections to learn offsets for pre_jump (so 0.8 / x), is for Full_traj
       task_mode="IL_ADD_CARTESIAN_P_JOINT_PREJUMP_ONLY",
       observation_space_mode="MOTION_IMITATION_EXTENDED2_CONTACTS",
-      #observation_space_mode="MOTION_IMITATION_EXTENDED_HISTORY", # CHUONG
+      #observation_space_mode="MOTION_IMITATION_EXTENDED_HISTORY", # CHUONG- don't need to use it
       land_and_settle=False,
       traj_num_lookahead_steps=4,
       accurate_motor_model_enabled=True,
@@ -322,6 +323,10 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
     if self._task_env == "FULL_TRAJ":
       action_dim = 12 * task_env_num #( FLIGHT_TIME_START / time_step * action_repeat )
       action_repeat = int(FLIGHT_TIME_START / (time_step * task_env_num ))
+    elif self._task_env == "PARTIAL_TRAJ":
+      action_dim = 12 * 2 #( FLIGHT_TIME_START / time_step * action_repeat )
+      action_repeat = 50
+
     elif self._task_mode in ["IL_ADD_TORQUE", "IL_ADD_Qdes", \
                           "IL_ADD_Qdes_PREJUMP_ONLY","IL_ADD_CARTESIAN_P","IL_ADD_CARTESIAN_P_JOINT", \
                           "IL_ADD_CARTESIAN_P_JOINT_PREJUMP_ONLY", "IL_ADD_CARTESIAN_P_PREJUMP_ONLY"]:
@@ -379,6 +384,9 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
       raise ValueError ('observation space not defined')
 
     if self._task_env == "FULL_TRAJ":
+      obs_high = np.concatenate( (obs_high, self.traj_task_max_range))
+      obs_low  = np.concatenate( (obs_low,  self.traj_task_min_range))
+    elif self._task_env == "PARTIAL_TRAJ":
       obs_high = np.concatenate( (obs_high, self.traj_task_max_range))
       obs_low  = np.concatenate( (obs_low,  self.traj_task_min_range))
 
@@ -949,7 +957,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
         tau = self._opt_traj_cartesian_pd_controller(foot_pos+delta_pos, foot_vel, foot_force)
         action = tau + tau_ff
 
-      elif self._task_mode in ["IL_ADD_CARTESIAN_P_JOINT", "IL_ADD_CARTESIAN_P_JOINT_PREJUMP_ONLY"]:
+      elif self._task_mode in ["IL_ADD_CARTESIAN_P_JOINT", "IL_ADD_CARTESIAN_P_JOINT_PREJUMP_ONLY"]: # We are using it
         # As in Cheetah 3 jumping paper, but now adding contribution in joint space as well
         # Cartesian PD
         foot_pos, foot_vel, foot_force = self._get_cartesian_imitation_action()
@@ -960,7 +968,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
         # get contribution in q_des as well 
         delta_q = np.zeros(12)
         for j in range(4):
-          J, _ = self._robot._ComputeJacobianAndPositionUSC(j,specific_delta_q=q_des[j*3:j*3+3])
+          J, _ = self._robot._ComputeJacobianAndPositionUSC(j, specific_delta_q=q_des[j*3:j*3+3])
           delta_q[j*3:j*3+3] = J.T @ delta_pos[j*3:j*3+3]
 
         # joint PD w torque
@@ -1061,7 +1069,106 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
       raise NotImplementedError('Task mode not implemented.')
     return action
 
-  
+  def step_partial_traj(self, action):
+    """ Step forward the simulation, given the action. """
+
+    # reshape action into number of offsets to use
+    # reshaped_action = np.reshape(action,(12,-1))
+    reshaped_action = np.reshape(action, (12, 2))
+    # print('reshaped_action', reshaped_action)
+
+    for i in range(2):
+      # print("chuong here")
+      for _ in range(50):
+        proc_action = self._transform_action_to_motor_command(reshaped_action[:, i])
+
+        self._robot.ApplyAction(proc_action)
+        self._pybullet_client.stepSimulation()
+        self._sim_step_counter += 1
+        self._last_action = self._robot._applied_motor_torque
+
+        if self._is_render:
+          time.sleep(0.001)
+          self._render_step_helper()
+
+    curr_act = action.copy()
+    # print("curr_act:", curr_act)
+
+    # print("action size:", curr_act.shape)
+    if self._enable_action_filter:
+      curr_act = self._action_filter(curr_act)
+    perturbation = np.zeros(3)
+
+
+    # print("sim_step_counter:", self._sim_step_counter)
+
+    # check if off the ground, if so then sim until end of trajectory open loop
+    # if self.get_sim_time() > FLIGHT_TIME_START: # "PREJUMP_ONLY" in self._task_mode and
+    _, _, _, feetInContactBool = self._robot.GetContactInfo()
+    if "PREJUMP_ONLY" in self._task_mode and self.get_sim_time() > FLIGHT_TIME_START:  # and sum(feetInContactBool) == 0
+      done = False
+      total_reward = 0
+      while self.get_sim_time() > FLIGHT_TIME_START and not done:
+        # self._transform_action_to_motor_command(np.zeros(self._action_dim))
+        q_des, q, dq_des, dq, tau = self._get_default_imitation_action()
+        proc_action = self._opt_traj_pd_controller(q_des, q, dq_des, dq, tau)
+
+        if "CARTESIAN" in self._task_mode:
+          # if cartesian in name
+          # joint PD w torque
+          # tau_ff = self._opt_traj_pd_controller(q_des, q, dq_des, dq, tau)
+          # Cartesian PD
+          foot_pos, foot_vel, foot_force = self._get_cartesian_imitation_action()
+          tau = self._opt_traj_cartesian_pd_controller(foot_pos, foot_vel, foot_force)
+          proc_action = tau + proc_action
+
+        self._robot.ApplyAction(proc_action)
+        self._pybullet_client.stepSimulation()
+        self._sim_step_counter += 1
+        self._last_action = self._robot._applied_motor_torque
+        # self._last_action_rl = action
+        if self._is_render:
+          time.sleep(0.001)
+          self._render_step_helper()
+
+        reward, terminate = self._reward_and_terminate()
+        # done = terminate or self.get_sim_time() > self._MAX_EP_LEN # also have max time
+        done = self.get_sim_time() > self._traj_task.get_duration()  # also have max time
+        total_reward += reward
+
+      final_estimate = self._get_terminal_reward()
+      reward = total_reward
+
+      return np.array(self._noisy_observation()), reward, done, {}
+
+    # self._last_action_rl = curr_act
+    self._env_step_counter += 1
+
+    # print("env counter:", self._env_step_counter)
+    # reward = self._reward()
+    # self._last_action = self._robot._applied_motor_torque
+    reward, terminate = self._reward_and_terminate()
+    # print("terminate:", terminate)
+    # print("get sim time:", self.get_sim_time())
+    done = terminate or self.get_sim_time() > self._MAX_EP_LEN # also have max time
+    # done = self.get_sim_time() > self._MAX_EP_LEN
+
+    # reward only if at end of trajectory, otherwise 0
+    if self._sparse_rewards:
+      reward = 0
+
+    # if at end of trajectory, give extra reward on how close we are to desired
+    if self.get_sim_time() > self._traj_task.get_duration():
+      reward = self._get_terminal_reward()
+
+    if done and self._is_render:
+      time.sleep(0.5)
+      self._render_step_helper()
+
+    # print("reward:", reward)
+    # print("done:", done)
+    return np.array(self._noisy_observation()), reward, done, {}
+
   def step_full_traj(self, action):
     """ Step for full traj in action space. """
 
@@ -1069,6 +1176,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
     #reshaped_action = np.reshape(action,(12,-1))
     reshaped_action = np.reshape(action, (12, self._task_env_num))
     #print('reshaped_action', reshaped_action)
+    # print("chuong")
 
     for i in range(self._task_env_num):
 
@@ -1146,8 +1254,14 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
 
   def step(self, action):
     """ Step forward the simulation, given the action. """
+    # if self._task_env == "PARTIAL_TRAJ":
+    #   #print('action', action)
+    #   # print("chuong here")
+    #   return self.step_partial_traj(action)
+
     # if self._task_env == "FULL_TRAJ":
     #   #print('action', action)
+    #   # print("chuong here")
     #   return self.step_full_traj(action)
 
     if self._is_render:
@@ -1170,7 +1284,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
 
     # print("action repeat", self._action_repeat)
     # print("action_repeat every (s):", self._action_repeat*0.001)
-    for _ in range (30): # 10
+    for _ in range (50): # 10
       # only scale action if it's a gym interface
       self._robot.ApplyExternalForce(perturbation)
       #print('-----------------curr_act in loop', curr_act)
@@ -1192,6 +1306,9 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
       if self._is_render:
         time.sleep(0.001)
         self._render_step_helper()
+
+    # print("sim_step_counter:", self._sim_step_counter)
+
 
     # check if off the ground, if so then sim until end of trajectory open loop
     #if self.get_sim_time() > FLIGHT_TIME_START: # "PREJUMP_ONLY" in self._task_mode and
@@ -1235,10 +1352,12 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
     self._last_action_rl = curr_act
     self._env_step_counter += 1
 
-    print("env counter:", self._env_step_counter)
+    # print("env counter:", self._env_step_counter)
     #reward = self._reward()
     #self._last_action = self._robot._applied_motor_torque
     reward, terminate = self._reward_and_terminate()
+    # print("terminate:", terminate)
+    # print("get sim time:", self.get_sim_time())
     done = terminate or self.get_sim_time() > self._MAX_EP_LEN # also have max time
     #done = self.get_sim_time() > self._MAX_EP_LEN 
 
@@ -1254,7 +1373,8 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
       time.sleep(0.5)
       self._render_step_helper()
 
-    print("reward:", reward)
+    # print("reward:", reward)
+    # print("done:", done)
     return np.array(self._noisy_observation()), reward, done, {}
 
   ######################################################################################
@@ -1348,7 +1468,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
           + self._joint_pos_weight * np.linalg.norm( traj_joint_pos - curr_joint_pos ) \
           + self._joint_vel_weight * np.linalg.norm( traj_joint_vel - curr_joint_vel )
 
-    reward = 1 - reward # survival bonus
+    reward = (1 - reward)# survival bonus
 
 
     terminate = False
@@ -1366,7 +1486,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
     # terminate if diverge too much from trajectory
     #if np.linalg.norm( traj_base_pos - curr_base_pos) > .5: #1:
     if np.linalg.norm( np.concatenate((traj_base_pos,traj_base_orn)) \
-             - np.concatenate((curr_base_pos,curr_base_orn)) ) > .5: #1:
+             - np.concatenate((curr_base_pos,curr_base_orn)) ) > 0.5: #1:
     # if np.linalg.norm( np.concatenate((traj_base_pos,[traj_base_orn[1]])) \
     #      - np.concatenate((curr_base_pos,[curr_base_orn[1]])) ) > .2: #1:
       terminate = True
@@ -1380,7 +1500,7 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
     #   terminate = False
 
     # terminate if trajectory is over, add 1 second of settling time
-    if curr_time > self._traj_task.get_duration() + 0:
+    if curr_time > self._traj_task.get_duration() + 1:
       terminate = True
       #print('final base pos', self._robot.GetBasePosition())
       #sys.exit()
@@ -1418,6 +1538,8 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
     elif self._observation_space_mode == "MOTION_IMITATION_EXTENDED2_CONTACTS":
       self._robot_state = self._robot.GetExtendedObservation2()
       print("robot_state1:", len(self._robot_state)) # 73
+      self._add_obs_noise = (np.random.normal(scale=self._observation_noise_stdev, size=len(self._robot_state)) *
+                             self._robot.GetExtendedObservation2UpperBound())  # NEED TO FIXED DIMENSION - CHUONG
       # print(type(robot_state)) # list type
     elif self._observation_space_mode == "MOTION_IMITATION_EXTENDED2_CONTACTS_HISTORY": # We don't use it
       self._robot_state = self._robot.GetExtendedObservation2_History() # CHUONG, get history
@@ -1453,26 +1575,26 @@ class ImitationGymEnv(quadruped_gym_env.QuadrupedGymEnv):
   def _noisy_observation(self):
     self._get_observation()
     observation = np.array(self._observation)
-    # self._add_obs_noise = np.append(self._add_obs_noise, np.array([0, 0, 0, 0]*self._sensory_hist_len))  # Add noise only to robot state
-    # # print("add_obs_noise:", self._add_obs_noise.shape)
-    # if self._observation_noise_stdev > 0:
-    #   observation += self._add_obs_noise
-    #   # observation += (
-    #   #     np.random.normal(scale=self._observation_noise_stdev, size=observation.shape) *
-    #   #     self._robot.GetObservationUpperBound())
-    #
-    # if self._normalize_obs: # also check its initialized
-    #   # TODO
-    #   state = observation.copy()
-    #   contacts = state[-4:]
-    #   try:
-    #     self.normalizer.observe(state)
-    #     observation = self.normalizer.normalize(state)
-    #   except:
-    #     print('add normalizer')
-    #     self.normalizer = Normalizer(len(observation))
-    #   # undo contacts normalization
-    #   #observation[-4:] = contacts
+    self._add_obs_noise = np.append(self._add_obs_noise, np.array([0, 0, 0, 0]*self._sensory_hist_len))  # Add noise only to robot state
+    # print("add_obs_noise:", self._add_obs_noise.shape)
+    if self._observation_noise_stdev > 0:
+      observation += self._add_obs_noise
+      # observation += (
+      #     np.random.normal(scale=self._observation_noise_stdev, size=observation.shape) *
+      #     self._robot.GetObservationUpperBound())
+
+    if self._normalize_obs: # also check its initialized
+      # TODO
+      state = observation.copy()
+      contacts = state[-4:]
+      try:
+        self.normalizer.observe(state)
+        observation = self.normalizer.normalize(state)
+      except:
+        print('add normalizer')
+        self.normalizer = Normalizer(len(observation))
+      # undo contacts normalization
+      #observation[-4:] = contacts
     return observation
 
     ##############################################################################

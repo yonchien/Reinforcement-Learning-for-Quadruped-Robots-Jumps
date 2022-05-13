@@ -87,12 +87,10 @@ log_dir ='030821121850' # started later
 log_dir ='042122173936' # chuong- LSTM-PPO, 10 history states, with observation noise
 # log_dir ='042222171848' # chuong- LSTM-PPO, 30 history states, with observation noise
 log_dir ='042222235549' # chuong- LSTM-PPO, 30 history states, no observation noise
-log_dir ='042722223958' # correct implementation
-log_dir ='042822121912' # correct implementation
-
-
-
-
+log_dir ='050422000711' # correct implementation, 2 million steps, good result. action space 12*2, action repeat =50 -- best result so far
+log_dir ='050522173001' # correct implementation, 5 million steps, good result. action space 12*2, action repeat =50, change reward
+log_dir ='050722230855' # correct implementation, 5 million steps, good result. action space 12*2, action repeat =50, change reward
+log_dir ='050922230939' # correct implementation, 5 million steps, good result. action space 12, action repeat =50,
 ################################################################################################
 ### Script - shouldn't need to change anything below unless trying to load a specific checkpoint
 #################################################################################################
@@ -113,7 +111,7 @@ if '/' in ALG:
 
 # most recent checkpoint in train_dir
 checkpoint = get_latest_model_rllib(train_dir)
-data = load_rllib(train_dir)
+data = load_rllib(train_dir) # for plot figure
 
 try:
     sys.path.append(log_dir[:-log_idx])
@@ -122,7 +120,8 @@ except:
     pass
 stats_path = str(log_dir)
 print('stats_path', stats_path)
-vec_stats_path = os.path.join(stats_path, "vec_normalize.pkl")
+# vec_stats_path = os.path.join(stats_path, "vec_normalize.pkl") # we currently don't use it
+# print(vec_stats_path)
 
 
 # get env config if available
@@ -169,8 +168,8 @@ env_config['land_and_settle'] = True
 env_config['test_heights'] = np.array([ [0.01, 0.05, 0.01, 0.1] ,
                                    [0.05, 0.01, 0.1 , 0.01]]).T
 
-for k,v in env_config.items():
-    print(k,v)
+for k, v in env_config.items():
+    print(k, v)
 
 print("kpCartesian", robot_config.kpCartesian)
 print("kdCartesian", robot_config.kdCartesian)
@@ -181,7 +180,8 @@ class DummyQuadrupedEnv(gym.Env):
     """ Dummy class to work with rllib. """
     def __init__(self, dummy_env_config):
         # self.env = ImitationGymEnv(**env_config)
-        self.env = ImitationGymEnv(observation_space_mode="MOTION_IMITATION_EXTENDED2_CONTACTS", render=True)
+        self.env = ImitationGymEnv(observation_space_mode="MOTION_IMITATION_EXTENDED2_CONTACTS", render=True,
+                                   record_video=True, task_env= None)
 
         #write_env_config(save_path,self.env)
         self.action_space = self.env.action_space
@@ -237,13 +237,14 @@ register_env("quadruped_gym_env",  lambda _: DummyQuadrupedEnv(_))
 
 ModelCatalog.register_custom_model("my_model", LSTMModel)
 
+print("------------------------")
 # load training configurations (can be seen in params.json)
 config_path = os.path.join(train_dir, "params.pkl")
 
 with open(config_path, "rb") as f:
     config = pickle.load(f)
 
-NUM_CPUS = 1
+NUM_CPUS = 0
 # num_samples_each_worker = int(600/ NUM_CPUS)
 
 config["num_workers"] = NUM_CPUS
@@ -276,20 +277,51 @@ else:
 print('checkpoint', checkpoint)
 agent.restore(checkpoint)
 
+# policy = agent.get_policy()
+# policy.model.save_model(log_dir+"/saved_model/model")
+
+
 env = agent.workers.local_worker().env
 print(env)
 print('agent', agent)
 
+# TODO: export model
+rllib_mean_std_filter = agent.workers.local_worker().filters['default_policy']
+var = np.square(rllib_mean_std_filter.rs.std)
+vecnorm_arr = np.vstack((rllib_mean_std_filter.rs.mean,
+                         rllib_mean_std_filter.rs.var,
+                         env.env.observation_space.high,
+                         env.env.observation_space.low))
+quadruped_env = env.env
+act_space_arr = np.vstack((
+    quadruped_env._robot_config.IK_POS_UPP_LEG,
+    quadruped_env._robot_config.IK_POS_LOW_LEG
+))
+write_out_path = 'exported_models/050922230939/'
+
+np.savetxt(write_out_path + 'vecnorm_params.csv', vecnorm_arr,delimiter=',')
+np.savetxt(write_out_path + 'action_space.csv', act_space_arr, delimiter=',')
+motor_gains = np.array([quadruped_env._robot_config.MOTOR_KP[0], quadruped_env._robot_config.MOTOR_KD[0]])
+# print('writing out motor gains:', motor_gains )
+# np.savetxt(write_out_path + 'joint_gains.csv', motor_gains,delimiter=',')
+
+# TODO: save tf2 model
+policy = agent.get_policy()
+policy.model.save_model(write_out_path + 'my_model')
+
+print("Model exported")
+
 # import pdb
 # pdb.set_trace()
 obs = env.reset()
-action = agent.compute_action(obs)
+memory_state = [np.zeros([128], np.float32) for _ in range(2)]
+action, memory_state, _ = agent.compute_action(obs, memory_state, explore=False)
 
 write_out_path_root = '/home/guillaume/catkin_ws/src/USC-AlienGo-Software/laikago_ros/jumping_iros/'
 # env.envs[0].env._traj_task.writeoutTraj(write_out_path)
 write_out_path = write_out_path_root + 'model_imitation/'
 
-TEST_STEPS = 100
+TEST_STEPS = 10
 # USE_ROS = False
 if USE_ROS:
     from ray.tune.trial import ExportFormat
@@ -324,9 +356,9 @@ if USE_ROS:
     ray.shutdown()
     sys.exit()
 
-joint_taus = np.zeros((12,TEST_STEPS))
-joint_vels = np.zeros((12,TEST_STEPS))
-joint_pos = np.zeros((12,TEST_STEPS))
+joint_taus = np.zeros((12, TEST_STEPS))
+joint_vels = np.zeros((12, TEST_STEPS))
+joint_pos = np.zeros((12, TEST_STEPS))
 episode_reward = 0
 num_steps = 0
 # velocities
@@ -335,25 +367,29 @@ act_vels = []
 
 for _ in range(TEST_STEPS):
     #print(obs)
-    if USE_ROS:
-        # query service
-        rl_obs = RLObs()
-        rl_obs.data = obs
-        rl_act = tf_comm(rl_obs)
-        action = np.clip(rl_act.rlAct.data, -1, 1)
-    else:
-        action = agent.compute_action(obs, explore=True) # doesn't really matter?
-        #print(agent.compute_action([0]*48))
-    obs, reward, done, info = env.step(action)
-    episode_reward += reward
-    num_steps += 1
-    if done:
-        print('episode reward:', episode_reward, "num_steps:", num_steps)
-        #print(env.env.env.env.venv.envs[0].env._robot.GetBasePosition() )
-        print(info)
-        episode_reward = 0
-        num_steps = 0
-        obs = env.reset()
+    done = False
+    while not done:
+        if USE_ROS:
+            # query service
+            rl_obs = RLObs()
+            rl_obs.data = obs
+            rl_act = tf_comm(rl_obs)
+            action = np.clip(rl_act.rlAct.data, -1, 1)
+        else:
+            # action = agent.compute_action(obs, explore=False) # doesn't really matter?
+            action, memory_state, _ = agent.compute_action(obs, memory_state, explore=False)
+
+            #print(agent.compute_action([0]*48))
+        obs, reward, done, info = env.step(action)
+        episode_reward += reward
+        num_steps += 1
+        if done:
+            print('episode reward:', episode_reward, "num_steps:", num_steps)
+            #print(env.env.env.env.venv.envs[0].env._robot.GetBasePosition() )
+            print(info)
+            episode_reward = 0
+            num_steps = 0
+            obs = env.reset()
     #time.sleep(0.01)
     # print(obs)
 

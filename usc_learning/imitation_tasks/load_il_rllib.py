@@ -32,7 +32,7 @@ from ray.rllib.agents import ppo, sac, ddpg, es, ars
 
 from usc_learning.utils.utils import plot_results, load_rllib, load_rllib_v2
 from usc_learning.envs.quadruped_master.quadruped_gym_env import QuadrupedGymEnv
-# from usc_learning.imitation_tasks.imitation_gym_env import ImitationGymEnv
+from usc_learning.imitation_tasks.imitation_gym_env import ImitationGymEnv
 import numpy as np
 # stable baselines vec env
 from stable_baselines3.common.cmd_util import make_vec_env
@@ -83,7 +83,14 @@ log_dir ='030821121850' # started later
 log_dir ='042122173936' # chuong- LSTM-PPO
 log_dir ='042622140629' # chuong -MLP-PPO, "fcnet_hiddens": [200, 100]
 # log_dir ='042922102335' # some steps
-log_dir ='042922103532' # change action repeat to 30, 2 million training steps
+log_dir ='042922103532' # SAC+ change action repeat to 30, 2 million training steps
+
+log_dir ='050122161428' # SAC+ change action repeat to 50, 350000 training steps, reward threshold=0.5
+log_dir ='050122224217' # SAC+ change action repeat to 50, 350000 training steps, reward threshold=0.05
+log_dir ='050222234904' # SAC+ change action repeat to 50, 350000 training steps, reward threshold=0.05
+log_dir ='050322095420' # SAC+ change action repeat to 50, 350000 training steps, reward threshold=0.5
+log_dir ='050322162428' # SAC+ change action repeat to 50, 350000 training steps, reward threshold=0.05, action dim=12*2, partial traj
+log_dir ='050422182630'  # GUILAUME
 ################################################################################################
 ### Script - shouldn't need to change anything below unless trying to load a specific checkpoint
 #################################################################################################
@@ -113,7 +120,7 @@ except:
     pass
 stats_path = str(log_dir)
 print('stats_path', stats_path)
-vec_stats_path = os.path.join(stats_path,"vec_normalize.pkl")
+vec_stats_path = os.path.join(stats_path, "vec_normalize.pkl")
 
 
 # get env config if available
@@ -123,7 +130,7 @@ try:
     #sys.path.append(stats_path)
     sys.path.insert(0,stats_path)
 
-    from imitation_gym_env_lstm import ImitationGymEnv
+    # from imitation_gym_env_lstm import ImitationGymEnv
     # from quadruped import Quadruped
     # # added 
     # import quadruped_gym_env
@@ -263,7 +270,7 @@ print('agent',agent)
 # import pdb
 # pdb.set_trace()
 obs = env.reset()
-action = agent.compute_action(obs)
+# action = agent.compute_action(obs)
 
 write_out_path_root = '/home/guillaume/catkin_ws/src/USC-AlienGo-Software/laikago_ros/jumping_iros/'
 # env.envs[0].env._traj_task.writeoutTraj(write_out_path)
@@ -322,7 +329,7 @@ for _ in range(TEST_STEPS):
         rl_act = tf_comm(rl_obs)
         action = np.clip(rl_act.rlAct.data, -1, 1)
     else:
-        action = agent.compute_action(obs, explore=True) # doesn't really matter?
+        action = agent.compute_action(obs, explore=False) # doesn't really matter?
         #print(agent.compute_action([0]*48))
     obs, reward, done, info = env.step(action)
     episode_reward += reward

@@ -13,7 +13,7 @@ from ray.tune.registry import register_env
 from ray.rllib.agents.ppo import PPOTrainer
 # quadruped env
 # from usc_learning.envs.quadruped_master.quadruped_gym_env import QuadrupedGymEnv
-from usc_learning.imitation_tasks.imitation_gym_env_lstm import ImitationGymEnv
+from usc_learning.imitation_tasks.imitation_gym_env import ImitationGymEnv
 from usc_learning.envs.car.rcCarFlagRunGymEnv import RcCarFlagRunGymEnv
 # stable baselines vec env
 from stable_baselines3.common.cmd_util import make_vec_env
@@ -79,7 +79,7 @@ class DummyQuadrupedEnv(gym.Env):
         #     # write env configs to reload (i.e if don't need to inspect whole code base)
         #     write_env_config(save_path,env)
         # else:
-        self.env = ImitationGymEnv(observation_space_mode="MOTION_IMITATION_EXTENDED2_CONTACTS_HISTORY")
+        self.env = ImitationGymEnv(observation_space_mode="MOTION_IMITATION_EXTENDED2_CONTACTS_HISTORY", task_env= "FULL_TRAJ")
         write_env_config(save_path, self.env)
         self.action_space = self.env.action_space
         self.observation_space = self.env.observation_space
@@ -237,7 +237,7 @@ if ALG == "SAC":
                     local_dir=SAVE_RESULTS_PATH,
                     checkpoint_freq=checkpoint_freq,
                     verbose=2,
-                    stop= {"timesteps_total": 2000000} # 10000000
+                    stop= {"timesteps_total": 5000000} # 10000000
                     )
     ray.shutdown()
     #sys.exit()
